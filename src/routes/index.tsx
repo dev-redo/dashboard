@@ -1,10 +1,10 @@
 import Tmp from './TmpPage/Tmp';
-
+import Charts from './Charts/Charts';
 const App = () => {
   return (
     <div className='App'>
-      <div>메인</div>
       <Tmp />
+      <Charts />
     </div>
   );
 };
