@@ -11,17 +11,13 @@ import {
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useState } from "react";
 
-const Header = () => {
+interface HeaderProps {
+  onMenuHandler: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onMenuHandler }) => {
   const drawerWidth = 300;
-
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
-
   return (
     <AppBar
       position="fixed"
@@ -37,7 +33,7 @@ const Header = () => {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
+            onClick={onMenuHandler}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />

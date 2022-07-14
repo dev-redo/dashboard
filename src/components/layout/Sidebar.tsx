@@ -11,46 +11,44 @@ import {
   ListItemText,
   Link,
   styled,
+  IconButton,
 } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 
-const drawerWidth = 300;
+interface SidebarProps {
+  mobileOpen: boolean;
+  onMenuHandler: () => void;
+}
 
-const StyledLink = styled(Link)({
-  textDecoration: "none",
-  fontSize: 18,
-});
-
-const Sidebar = () => {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
+const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onMenuHandler }) => {
+  const drawerWidth = 300;
 
   const drawer = (
     <Box>
       <Divider />
       <List sx={{ padding: 0 }}>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ pt: 2, pb: 2 }}>
-            <ListItemIcon>
-              <StackedLineChartIcon />
-            </ListItemIcon>
-            <StyledLink href="/" color="inherit">
-              대시보드
-            </StyledLink>
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ pt: 2, pb: 2 }}>
-            <ListItemIcon></ListItemIcon>
-            <StyledLink href="/ad" color="inherit">
-              광고관리
-            </StyledLink>
-          </ListItemButton>
-        </ListItem>
+        <StyledLink href="/" color="inherit">
+          <ListItem disablePadding>
+            <ListItemButton sx={{ pt: 2, pb: 2 }}>
+              <ListItemIcon>
+                <StackedLineChartIcon />
+              </ListItemIcon>
+              <span>대시보드</span>
+            </ListItemButton>
+          </ListItem>
+        </StyledLink>
+        <StyledLink href="/ad" color="inherit">
+          <ListItem disablePadding>
+            <ListItemButton sx={{ pt: 2, pb: 2 }}>
+              <ListItemIcon>
+                <PostAddIcon />
+              </ListItemIcon>
+              <span>광고관리</span>
+            </ListItemButton>
+          </ListItem>
+        </StyledLink>
       </List>
     </Box>
   );
@@ -64,17 +62,16 @@ const Sidebar = () => {
       {/* mobile */}
       <Drawer
         variant="temporary"
-        open={isMobileOpen}
-        onClose={handleDrawerToggle}
+        open={mobileOpen}
+        onClose={onMenuHandler}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: "block", sm: "none" },
           "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
-        <Typography>모바일</Typography>
         {drawer}
       </Drawer>
       {/* pc */}
@@ -99,3 +96,9 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+const StyledLink = styled(Link)({
+  textDecoration: "none",
+  fontSize: 18,
+  display: "block",
+});
