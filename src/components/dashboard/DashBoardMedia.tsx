@@ -8,12 +8,17 @@ import {
   TableRow,
   TableBody,
 } from "@mui/material";
+import StackedBarChart from "../../routes/Charts/Shapes/StackedBarChart";
 
 const DashboardMedia = () => {
   return (
     <StyledItem>
-      <Box sx={{ background: "#d9d7ff", height: 400 }}>Stack chart</Box>
+      <Box sx={{ background: "#d9d7ff", height: 400, display: "flex" }}>
+        Stack chart
+        <StackedBarChart />
+        </Box>
       {/* TODO: 가로스크롤? */}
+      
       <TableContainer sx={{ overflowX: "auto", width: "100%", mt: 2 }}>
         <Table stickyHeader aria-label="simple table">
           <TableHead>
