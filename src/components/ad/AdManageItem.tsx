@@ -59,7 +59,7 @@ const AdManageItem = () => {
           variant="outlined"
           color="info"
           sx={{ mt: 2 }}
-          onClick={() => navigate("/ad_modify")}
+          onClick={() => navigate("/campagin-edit")}
         >
           수정하기
         </Button>

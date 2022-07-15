@@ -2,7 +2,7 @@ import Layout from "../components/layout/Layout";
 import { Box, styled, Typography, Input, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const AdModify = () => {
+const CreateCampagin = () => {
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
   return (
@@ -57,7 +57,7 @@ const AdModify = () => {
   );
 };
 
-export default AdModify;
+export default CreateCampagin;
 
 const StyledContents = styled(Box)({
   paddingBlock: 50,
