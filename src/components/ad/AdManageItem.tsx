@@ -11,8 +11,10 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const AdManageItem = () => {
+  const navigate = useNavigate();
   return (
     <StyledAdListWrap item xs={2} sm={4} md={4}>
       <CardContent>
@@ -53,7 +55,12 @@ const AdManageItem = () => {
             <ListItemText primary="Single-line item" />
           </ListItem>
         </List>
-        <Button variant="outlined" color="info" sx={{ mt: 2 }}>
+        <Button
+          variant="outlined"
+          color="info"
+          sx={{ mt: 2 }}
+          onClick={() => navigate("/ad_modify")}
+        >
           수정하기
         </Button>
       </CardContent>
