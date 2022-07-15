@@ -10,17 +10,33 @@ import {
   Line
 } from "recharts";
 import ChartCard from '../../../components/ChartCard/ChartCard';
-import { TEMPERATURE } from '../../../data/melb-monthly-temperature';
-import { getMonthNameByOrder } from '../../../monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 import DailyReport from "../../../data/daily-report.json";
+import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachWeekOfInterval, format } from 'date-fns'
 
 const DailyReportChart: React.FC = () => {
   const data = DailyReport.report;
+  const list:Array<object> = []
+  const shortWeekTemp = data.daily.map((v:any, index:number) => index >=7 ? "" : (
+    list.push(v)
+    ))
+    console.log(list)
+
+    const formatXAxis = (tickItem:string) => {
+
+      return format(parseISO(tickItem), `MM월 dd일`)
+    
+    }
+
   return (
-    <ChartCard heading="오늘의 광고 차트">
+    <ChartCard heading="이번주 광고 차트">
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data["daily"]} style={{ fontWeight: 'bold' }}>
+        <LineChart data={list} style={{ fontWeight: 'bold' }} margin={{
+        top: 20,
+        right: 60,
+        left: 30,
+        bottom: 5
+      }}>
           <CartesianGrid
             vertical={false}
             stroke="#d6d9da"
@@ -29,7 +45,7 @@ const DailyReportChart: React.FC = () => {
           <XAxis
             dataKey="date"
             tickLine={false}
-            
+            tickFormatter={formatXAxis}
           />
           <YAxis
             dataKey="roas"
@@ -40,7 +56,6 @@ const DailyReportChart: React.FC = () => {
             unit="원"
           />
           <Tooltip
-            labelFormatter={getMonthNameByOrder}
             cursor={false}
             contentStyle={TooltipContainerStyles}
           />
