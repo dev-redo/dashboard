@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import { Box, styled, Typography } from "@mui/material";
-import DashBoardAd from "../components/dashboard/DashBoardAd";
-import DashboardMedia from "../components/dashboard/DashBoardMedia";
+import OverallReports from "../components/dashboard/OverallReports";
+import PlatformReports from "../components/dashboard/PlatformReports";
 
 const Dashboard = () => {
   return (
@@ -10,12 +10,12 @@ const Dashboard = () => {
         <Typography variant="h6" sx={{ mb: 2 }}>
           통합 광고 현황
         </Typography>
-        <DashBoardAd />
+        <OverallReports />
 
         <Typography variant="h6" sx={{ mt: 6, mb: 2 }}>
           매체 현황
         </Typography>
-        <DashboardMedia />
+        <PlatformReports />
       </StyledContents>
     </Layout>
   );

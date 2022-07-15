@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onMenuHandler }) => {
             </ListItemButton>
           </ListItem>
         </StyledLink>
-        <StyledLink href="/ad" color="inherit">
+        <StyledLink href="/campagin-manage" color="inherit">
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>

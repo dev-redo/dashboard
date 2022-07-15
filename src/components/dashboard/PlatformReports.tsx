@@ -10,15 +10,15 @@ import {
 } from "@mui/material";
 import StackedBarChart from "../../routes/Charts/Shapes/StackedBarChart";
 
-const DashboardMedia = () => {
+const PlatformReports = () => {
   return (
     <StyledItem>
       <Box sx={{ background: "#d9d7ff", height: 400, display: "flex" }}>
         Stack chart
         <StackedBarChart />
-        </Box>
+      </Box>
       {/* TODO: 가로스크롤? */}
-      
+
       <TableContainer sx={{ overflowX: "auto", width: "100%", mt: 2 }}>
         <Table stickyHeader aria-label="simple table">
           <TableHead>
@@ -81,7 +81,7 @@ const DashboardMedia = () => {
   );
 };
 
-export default DashboardMedia;
+export default PlatformReports;
 
 const StyledItem = styled(Box)({
   paddingBlock: 30,

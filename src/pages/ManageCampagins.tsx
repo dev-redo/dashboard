@@ -1,6 +1,6 @@
 import Layout from "../components/layout/Layout";
-import { Box, styled, Typography, Grid } from "@mui/material";
-import AdManageContent from "../components/ad/AdManageContent";
+import { Box, styled, Typography } from "@mui/material";
+import ManageList from "../components/campagin/ManageList";
 
 const AdManage = () => {
   return (
@@ -10,7 +10,7 @@ const AdManage = () => {
           광고관리
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
-          <AdManageContent />
+          <ManageList />
         </Box>
       </StyledContents>
     </Layout>

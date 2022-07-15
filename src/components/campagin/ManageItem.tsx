@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const AdManageItem = () => {
+const ManageItem = () => {
   const navigate = useNavigate();
   return (
     <StyledAdListWrap item xs={2} sm={4} md={4}>
@@ -68,7 +68,7 @@ const AdManageItem = () => {
   );
 };
 
-export default AdManageItem;
+export default ManageItem;
 
 const StyledAdListWrap = styled(Grid)({
   border: "1px solid #dedede",
