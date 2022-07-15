@@ -16,15 +16,19 @@ import {
 import Drawer from "@mui/material/Drawer";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 interface SidebarProps {
   mobileOpen: boolean;
   onMenuHandler: () => void;
+  drawerWidth: number;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onMenuHandler }) => {
-  const drawerWidth = 300;
-
+const Sidebar: React.FC<SidebarProps> = ({
+  mobileOpen,
+  onMenuHandler,
+  drawerWidth,
+}) => {
   const drawer = (
     <Box>
       <Divider />
@@ -83,12 +87,19 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onMenuHandler }) => {
         }}
         open
       >
-        <Typography
-          variant="h5"
-          sx={{ pt: 6, pb: 6, fontWeight: 700, textAlign: "center" }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            height: 64,
+            pr: 2,
+          }}
         >
-          Dashboard
-        </Typography>
+          <IconButton>
+            <ArrowBackIosNewIcon />
+          </IconButton>
+        </Box>
         {drawer}
       </Drawer>
     </Box>

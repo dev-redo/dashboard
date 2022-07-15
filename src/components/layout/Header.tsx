@@ -14,10 +14,10 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 interface HeaderProps {
   onMenuHandler: () => void;
+  drawerWidth: number;
 }
 
-const Header: React.FC<HeaderProps> = ({ onMenuHandler }) => {
-  const drawerWidth = 300;
+const Header: React.FC<HeaderProps> = ({ onMenuHandler, drawerWidth }) => {
   return (
     <AppBar
       position="fixed"

@@ -7,9 +7,6 @@ const Dashboard = () => {
   return (
     <Layout>
       <StyledContents>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          통합 광고 현황
-        </Typography>
         <OverallReports />
 
         <Typography variant="h6" sx={{ mt: 6, mb: 2 }}>

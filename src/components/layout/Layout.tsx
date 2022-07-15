@@ -7,6 +7,8 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+const drawerWidth = 240;
+
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -15,9 +17,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      <Sidebar mobileOpen={isMobileOpen} onMenuHandler={onMenuHandler} />
+      <Sidebar
+        mobileOpen={isMobileOpen}
+        onMenuHandler={onMenuHandler}
+        drawerWidth={drawerWidth}
+      />
       <Box sx={{ flex: 1 }}>
-        <Header onMenuHandler={onMenuHandler} />
+        <Header onMenuHandler={onMenuHandler} drawerWidth={drawerWidth} />
         <StyledWrapper>{children}</StyledWrapper>
       </Box>
     </Box>
