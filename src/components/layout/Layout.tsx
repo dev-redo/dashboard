@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import Box from "@mui/material/Box";
-import Sidebar from "./Sidebar";
 import Header from "./Header";
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -10,22 +10,26 @@ interface LayoutProps {
 const drawerWidth = 240;
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
-  const onMenuHandler = () => {
-    setIsMobileOpen(!isMobileOpen);
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      <Sidebar
-        mobileOpen={isMobileOpen}
-        onMenuHandler={onMenuHandler}
-        drawerWidth={drawerWidth}
+      <Header
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
+        open={open}
       />
-      <Box sx={{ flex: 1 }}>
-        <Header onMenuHandler={onMenuHandler} drawerWidth={drawerWidth} />
+      <Main open={open}>
         <StyledWrapper>{children}</StyledWrapper>
-      </Box>
+      </Main>
     </Box>
   );
 };
@@ -38,3 +42,23 @@ const StyledWrapper = styled(Box)({
   background: "#f6f6f6",
   paddingTop: 64,
 });
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  //padding: theme.spacing(3),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: 0,
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));

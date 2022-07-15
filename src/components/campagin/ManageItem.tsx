@@ -1,12 +1,9 @@
 import {
-  Box,
   styled,
-  Card,
   CardContent,
   Typography,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Button,
   Grid,
@@ -57,7 +54,7 @@ const ManageItem = () => {
         </List>
         <Button
           variant="outlined"
-          color="info"
+          color="primary"
           sx={{ mt: 2 }}
           onClick={() => navigate("/campagin-edit")}
         >
@@ -72,14 +69,4 @@ export default ManageItem;
 
 const StyledAdListWrap = styled(Grid)({
   border: "1px solid #dedede",
-  // width: "32%",
-  //marginTop: "2%",
-  // marginRight: "2%",
-  //   boxShadow: "none",
-  // "&:nth-of-type(3n)": {
-  //   marginRight: 0,
-  // },
-  //   "&:nth-of-type(-n+3)": {
-  //     marginTop: 0,
-  //   },
 });
