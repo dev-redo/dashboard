@@ -19,24 +19,19 @@ import {renderLegend} from '../../../components/ChartCard/Legend'
 
 const StackedBarChart = () => {
 
-  const a = parseISO(ChannelReport[ChannelReport.length -1].date)
-  const b = parseISO(ChannelReport[1].date)
-  // const c= add(b, {weeks:1})
-  // differenceInWeeks(b, a)
-  // getWeekOfMonth(a)
-  add(b, {weeks:1})
-  var result = eachWeekOfInterval({
-    start: b,
-    end: a
+  const lastDate = parseISO(ChannelReport[ChannelReport.length -1].date)
+  const startDate = parseISO(ChannelReport[7].date)
+  const someDate = add(startDate, {weeks:1})
+
+  const result = eachWeekOfInterval({
+    start: startDate,
+    end: someDate
   })
 
-  const da = result.map((x) => 
+  const dateRange = result.map((x) => 
   (format(x, "yyyy-MM-dd")));
 
-  console.log(da)
- const data = useGetValuesByChannel(da);
-
-
+ const data = useGetValuesByChannel(dateRange);
 
 const toPercent = (decimal: number, fixed: number = 0) =>
   `${(decimal * 100).toFixed(fixed)}%`;
@@ -46,7 +41,7 @@ const getPercent = (value: number, total: number) => {
 
   return toPercent(ratio, 2);
 };
-console.log(getPercent(2, 10))
+// console.log(getPercent(2, 10))
 
 const keys = [['cost.google', 'cost.naver', 'cost.facebook', 'cost.kakao'], ['imp.google', 'imp.naver', 'imp.facebook', 'imp.kakao'],
 ['click.google', 'click.naver', 'click.facebook', 'click.kakao'],
@@ -55,7 +50,7 @@ const keys = [['cost.google', 'cost.naver', 'cost.facebook', 'cost.kakao'], ['im
 ];
 const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
 
-  console.log(data)
+  // console.log(data)
   return (
     // <ChartCard heading="스택 바!">
     <ResponsiveContainer width="100%" height={400}>
@@ -73,10 +68,6 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
       barCategoryGap={10} barGap={5}
     >
       <CartesianGrid strokeDasharray="6 6" />
-      {/* <XAxis dataKey="cost"  />
-      <XAxis dataKey="imp" /> */}
-            {/* <XAxis dataKey="roas"  />
-      <XAxis dataKey="convValue" /> */}
       <XAxis dataKey="name"/>
 
       <YAxis tickFormatter={toPercent}  width={35} axisLine={false} />
