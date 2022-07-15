@@ -10,6 +10,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import DailyReportChart from "../../routes/Charts/Shapes/DailyReportChart";
 
 const DashboardAd = () => {
   const [select, setSelect] = useState("");
@@ -63,6 +64,7 @@ const DashboardAd = () => {
           mb: 2,
         }}
       >
+        
         <Box>
           <FormControl sx={{ minWidth: 120, mr: 2 }} size="small">
             <InputLabel id="demo-select-small1">select</InputLabel>
@@ -110,8 +112,11 @@ const DashboardAd = () => {
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </FormControl>
+
       </Box>
-      <Box sx={{ background: "#ffd6d1", height: 400 }}>Line Chart</Box>
+      <Box sx={{ background: "#ffd6d1", height: 400 }}>Line Chart
+      <DailyReportChart/>
+      </Box>
     </StyledItem>
   );
 };

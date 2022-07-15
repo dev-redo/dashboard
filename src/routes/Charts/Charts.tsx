@@ -10,7 +10,7 @@ import StackedBarChart from "./Shapes/StackedBarChart";
 const Charts: React.FC = () => {
   return (
     <div>
-      {/* <StackedBarChart /> */}
+      <StackedBarChart />
       <DailyReportChart />
       <RainFallBarChart />
       <RainFallAreaChart />
