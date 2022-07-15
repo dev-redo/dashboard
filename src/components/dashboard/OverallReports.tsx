@@ -10,11 +10,14 @@ import {
   InputLabel,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import DailyReportChart from "../../routes/Charts/Shapes/DailyReportChart";
-
+import DailyReportChart from "../charts/DailyReportChart";
+import { useRecoilState } from "recoil";
+import {chartFirstData, chartSecondData} from "../../store/charts";
 const OverallReports = () => {
   const [select, setSelect] = useState("");
-
+  const [firstdata, setFirstData] = useRecoilState(chartFirstData)
+  const [secondData, setSecondData] = useRecoilState(chartSecondData)
+  console.log(firstdata, secondData)
   const handleChange = (event: SelectChangeEvent) => {
     setSelect(event.target.value);
   };
@@ -55,7 +58,6 @@ const OverallReports = () => {
         )}
       </Box>
 
-      {/* 차트 */}
       <Box
         sx={{
           display: "flex",
@@ -74,10 +76,12 @@ const OverallReports = () => {
               label="select"
               onChange={handleChange}
             >
-              <MenuItem value="ROAS">
-                <em>기본값</em>
+              <MenuItem value="ROAS" onClick={() => setFirstData("ROAS")}>
+                <em>ROAS</em>
               </MenuItem>
-              <MenuItem value="ROAS">ROAS</MenuItem>
+
+              <MenuItem value="ROAS" onClick={() => setFirstData("CLICK")}>CLICK</MenuItem>
+
             </Select>
           </FormControl>
           <FormControl sx={{ minWidth: 120 }} size="small">
@@ -89,10 +93,12 @@ const OverallReports = () => {
               label="select"
               onChange={handleChange}
             >
-              <MenuItem value="ROAS">
+              <MenuItem value="ROAS" onClick={() => setSecondData("ROAS")}>
+                <em>ROAS</em>
+              </MenuItem>
+               <MenuItem value="ROAS" onClick={() => setSecondData("CLICK")}>
                 <em>클릭 수</em>
               </MenuItem>
-              <MenuItem value="ROAS">ROAS</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -112,6 +118,7 @@ const OverallReports = () => {
           </Select>
         </FormControl>
       </Box>
+  {/* 차트 */}
       <Box sx={{ background: "#ffd6d1", height: 400 }}>
         Line Chart
         <DailyReportChart />

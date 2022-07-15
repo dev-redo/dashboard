@@ -1,7 +1,7 @@
 import React from "react";
 import { ResponsiveContainer, PieChart, Tooltip, Pie, Cell } from "recharts";
 
-import ChartCard from '../../../components/ChartCard/ChartCard';
+import ChartCard from '../chartCustoms/ChartCard';
 import { AGE_GROUP } from '../../../data/website-visit-age-group';
 import { getMonthNameByOrder } from '../../../monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";

@@ -9,12 +9,12 @@ import {
   Tooltip,
   Legend
 } from "recharts";
-import { STACKED } from '../../../data/stacked-bar-data';
-import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
-import { useGetValuesByChannel } from "../../../hooks/useGetValuesByChannel";
+import { STACKED } from '../../data/stacked-bar-data';
+import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
+import { useGetValuesByChannel } from "../../hooks/useGetValuesByChannel";
 import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachWeekOfInterval, format } from 'date-fns'
-import ChannelReport from "../../../data/channel-report.json";
-import {renderLegend} from '../../../components/ChartCard/Legend'
+import ChannelReport from "../../data/channel-report.json";
+import {renderLegend} from './chartCustoms/Legend'
 
 
 const StackedBarChart = () => {

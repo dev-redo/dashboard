@@ -1,24 +1,24 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  LineChart,
+  BarChart,
   CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
-  Line
+  Bar
 } from "recharts";
-import ChartCard from '../../../components/ChartCard/ChartCard';
-import { TEMPERATURE } from '../../../data/melb-monthly-temperature';
+import ChartCard from '../chartCustoms/ChartCard';
+import { RAINFALL } from '../../../data/melb-monthly-rainfail';
 import { getMonthNameByOrder } from '../../../monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 
-const TemperatureLineChart: React.FC = () => {
+const RainFallBarChart: React.FC = () => {
   return (
-    <ChartCard heading="Melbourne 2019 monthly temperature">
+    <ChartCard heading="Melbourne 2019 monthly rainfall">
       <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={TEMPERATURE["2019"]} style={{ fontWeight: 'bold' }}>
+        <BarChart data={RAINFALL["2019"]}  style={{ fontWeight: 'bold' }}>
           <CartesianGrid
             vertical={false}
             stroke="#d6d9da"
@@ -26,31 +26,20 @@ const TemperatureLineChart: React.FC = () => {
           />
           <XAxis
             dataKey="month"
+          
             tickLine={false}
           />
-          <YAxis
-            unit="°C"
-            width={35}
-            axisLine={false}
-            tickLine={false}
-            domain={["auto", "auto"]}
-          />
+          <YAxis unit="ml" width={35} axisLine={false} tickLine={false} />
           <Tooltip
             labelFormatter={getMonthNameByOrder}
             cursor={false}
             contentStyle={TooltipContainerStyles}
           />
-          <Line
-            type="monotone"
-            dataKey="temperature"
-            stroke="#EF5B5B"
-            name="Temperature"
-            unit="°C"
-          />
-        </LineChart>
+          <Bar dataKey="rainfall" fill="#3066BE" unit="ml" name="Rainfall" />
+        </BarChart>
       </ResponsiveContainer>
     </ChartCard>
   );
 };
 
-export default TemperatureLineChart;
+export default RainFallBarChart;
