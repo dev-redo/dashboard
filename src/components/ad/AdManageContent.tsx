@@ -28,7 +28,7 @@ const AdManageContent = () => {
             <MenuItem value={30}>광고3</MenuItem>
           </Select>
         </FormControl>
-        <Link href="/ad_make" underline="none">
+        <Link href="/campagin-create" underline="none">
           광고 만들기
         </Link>
       </Box>
