@@ -1,7 +1,7 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  AreaChart,
+  ComposedChart,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -10,16 +10,22 @@ import {
   Area,
   Line
 } from "recharts";
-import ChartCard from '../../../components/ChartCard/ChartCard';
+import ChartCard from '../chartCustoms/ChartCard';
 import { RAINFALL } from '../../../data/melb-monthly-rainfail';
+import { TEMPERATURE } from '../../../data/melb-monthly-temperature';
 import { getMonthNameByOrder } from '../../../monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 
-const RainFallAreaChart: React.FC = () => {
+const RainFallTemperatureComposedChart: React.FC = () => {
+  const data = RAINFALL["2019"].map((rainfall, index) => ({
+    ...rainfall,
+    temperature: TEMPERATURE["2019"][index].temperature
+  }));
+
   return (
-    <ChartCard heading="Melbourne 2019 monthly rainfall">
-      <ResponsiveContainer width="100%" height={200}>
-        <AreaChart data={RAINFALL["2019"]} style={{ fontWeight: 'bold' }}>
+    <ChartCard heading="Melbourne 2019 monthly rainfall and temperature">
+      <ResponsiveContainer width="100%" height={220}>
+        <ComposedChart data={data} style={{ fontWeight: 'bold' }}>
           <defs>
             <linearGradient id="rainGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#3066BE" />
@@ -31,10 +37,23 @@ const RainFallAreaChart: React.FC = () => {
             strokeDasharray="3 3"
             stroke="#d6d9da"
           />
-          <XAxis dataKey="month" />
+          <XAxis
+            dataKey="month"
+            scale="point"
+          />
           <YAxis
+            yAxisId="rainfall"
             unit="ml"
             orientation="left"
+            width={35}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            yAxisId="temperature"
+            unit="°C"
+            orientation="right"
+            domain={["auto", "auto"]}
             width={35}
             axisLine={false}
             tickLine={false}
@@ -43,18 +62,30 @@ const RainFallAreaChart: React.FC = () => {
             labelFormatter={getMonthNameByOrder}
             cursor={false}
             contentStyle={TooltipContainerStyles}
+            itemStyle={{ paddingBottom: 0 }}
           />
           <Area
+            yAxisId="rainfall"
             dataKey="rainfall"
             name="Rainfall"
             unit="ml"
             type="basis"
             fill="url(#rainGradient)"
           />
-        </AreaChart>
+          <Line
+            yAxisId="temperature"
+            dataKey="temperature"
+            name="Temperature"
+            type="monotone"
+            stroke="#EF5B5B"
+            fill="#EF5B5B"
+            unit="°C"
+          />
+          <Legend />
+        </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>
   );
 };
 
-export default RainFallAreaChart;
+export default RainFallTemperatureComposedChart;

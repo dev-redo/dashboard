@@ -9,9 +9,9 @@ import {
   Legend,
   Line
 } from "recharts";
-import ChartCard from '../../../components/ChartCard/ChartCard';
-import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
-import DailyReport from "../../../data/daily-report.json";
+import ChartCard from './chartCustoms/ChartCard';
+import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
+import DailyReport from "../../data/daily-report.json";
 import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachWeekOfInterval, format } from 'date-fns'
 
 const DailyReportChart: React.FC = () => {
@@ -20,7 +20,7 @@ const DailyReportChart: React.FC = () => {
   const shortWeekTemp = data.daily.map((v:any, index:number) => index >=7 ? "" : (
     list.push(v)
     ))
-    console.log(list)
+    // console.log(list)
 
     const formatXAxis = (tickItem:string) => {
 

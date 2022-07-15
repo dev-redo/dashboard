@@ -3,12 +3,12 @@ import ChannelReport from "../data/channel-report.json";
 
 export const useGetValuesByChannel = (dateRange:any) => {
 
-  const dateReduce = dateRange.reduce((acc: Array<object>, current:string) => {
+  const receivedDateReduce = dateRange.reduce((acc: Array<object>, current:string) => {
     if (current) {const values = ChannelReport.filter(value => value.date === current);
     acc.push(...values);}
     return acc;
   }, []);
-    // console.log(dateReduce)
+    // console.log(receivedDateReduce)
 
   const imp = {name: '노출수', imp: { google: 0, naver: 0, facebook: 0, kakao: 0 }}
   const cost = {name: '광고단가', cost : { google: 0, naver: 0, facebook: 0, kakao: 0 }}
@@ -16,7 +16,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
   const roas = {name: '매출', roas : { google: 0, naver: 0, facebook: 0, kakao: 0 }}
   const convValue = {name: '전환수', convValue : {google: 0, naver: 0, facebook: 0, kakao: 0 }}
 
-  const costs = dateReduce.forEach((v:any) => {
+  const costs = receivedDateReduce.forEach((v:any) => {
     if(v.channel === 'google') {
       cost.cost.google = v.cost;
     }
@@ -25,7 +25,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
     else if(v.channel === 'kakao')cost.cost.kakao = v.cost;
   })
 
-  const imps = dateReduce.forEach((v:any) => {
+  const imps = receivedDateReduce.forEach((v:any) => {
     if(v.channel === 'google') {
       imp.imp.google = v.imp;
     }
@@ -34,7 +34,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
     else if(v.channel === 'kakao')imp.imp.kakao = v.imp;
   })
 
-  const clicks = dateReduce.forEach((v:any) => {
+  const clicks = receivedDateReduce.forEach((v:any) => {
     if(v.channel === 'google') {
       click.click.google = v.click;
     }
@@ -43,7 +43,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
     else if(v.channel === 'kakao')click.click.kakao = v.click;
   })
 
-  const roases = dateReduce.forEach((v:any) => {
+  const roases = receivedDateReduce.forEach((v:any) => {
     if(v.channel === 'google') {
       roas.roas.google = v.roas;
     }
@@ -52,7 +52,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
     else if(v.channel === 'kakao')roas.roas.kakao = v.roas;
   })
 
-  const convValues = dateReduce.forEach((v:any) => {
+  const convValues = receivedDateReduce.forEach((v:any) => {
     if(v.channel === 'google') {
       convValue.convValue.google = v.convValue;
     }
