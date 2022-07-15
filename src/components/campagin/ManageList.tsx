@@ -7,9 +7,9 @@ import {
   Link,
   Grid,
 } from "@mui/material";
-import AdManageItem from "./AdManageItem";
+import AdManageItem from "./ManageItem";
 
-const AdManageContent = () => {
+const ManageList = () => {
   return (
     <StyledItem>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
@@ -45,7 +45,7 @@ const AdManageContent = () => {
   );
 };
 
-export default AdManageContent;
+export default ManageList;
 
 const StyledItem = styled(Box)({
   paddingBlock: 30,
