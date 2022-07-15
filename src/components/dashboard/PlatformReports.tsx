@@ -8,7 +8,7 @@ import {
   TableRow,
   TableBody,
 } from "@mui/material";
-import StackedBarChart from "../../routes/Charts/Shapes/StackedBarChart";
+import StackedBarChart from "../charts/StackedBarChart";
 
 const PlatformReports = () => {
   return (
