@@ -13,10 +13,7 @@ import StackedBarChart from "../charts/StackedBarChart";
 const PlatformReports = () => {
   return (
     <StyledItem>
-      <Box sx={{ background: "#d9d7ff", height: 400, display: "flex" }}>
-        Stack chart
-        <StackedBarChart />
-      </Box>
+      <StackedBarChart />
       {/* TODO: 가로스크롤? */}
 
       <TableContainer sx={{ overflowX: "auto", width: "100%", mt: 2 }}>
