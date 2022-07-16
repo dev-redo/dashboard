@@ -12,7 +12,7 @@ import {
 import { STACKED } from '../../data/stacked-bar-data';
 import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
 import { useGetValuesByChannel } from "../../hooks/useGetValuesByChannel";
-import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachWeekOfInterval, format } from 'date-fns'
+import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachDayOfInterval, format } from 'date-fns'
 import ChannelReport from "../../data/channel-report.json";
 import {renderLegend} from './chartCustoms/Legend'
 
@@ -20,18 +20,19 @@ import {renderLegend} from './chartCustoms/Legend'
 const StackedBarChart = () => {
 
   const lastDate = parseISO(ChannelReport[ChannelReport.length -1].date)
-  const startDate = parseISO(ChannelReport[7].date)
-  const someDate = add(startDate, {weeks:1})
+  const startDate = parseISO(ChannelReport[1].date)
+  const someDate = add(startDate, {days:6})
 
-  const result = eachWeekOfInterval({
+  const result = eachDayOfInterval({
     start: startDate,
     end: someDate
   })
 
   const dateRange = result.map((x) => 
   (format(x, "yyyy-MM-dd")));
-
+  console.log(dateRange)
  const data = useGetValuesByChannel(dateRange);
+
 
 const toPercent = (decimal: number, fixed: number = 0) =>
   `${(decimal * 100).toFixed(fixed)}%`;
@@ -53,7 +54,7 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
   // console.log(data)
   return (
     // <ChartCard heading="스택 바!">
-    <ResponsiveContainer width="100%" height={400}>
+ 
     <BarChart
       width={1000}
       height={400}
@@ -105,7 +106,7 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
         })}
       
     </BarChart>
-    </ResponsiveContainer>
+ 
     // </ChartCard>
   );
 }
