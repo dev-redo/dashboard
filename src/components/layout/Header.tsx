@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
   Link,
   styled,
   IconButton,
@@ -29,20 +28,23 @@ import SettingsIcon from "@mui/icons-material/Settings";
 interface HeaderProps {
   handleDrawerOpen: () => void;
   handleDrawerClose: () => void;
+  menuWidth: number;
   open: boolean;
+  md?: boolean;
 }
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
+  sidebar: number;
 }
 
-const drawerWidth = 240;
-
-const Header: React.FC<HeaderProps> = ({
+const Header = ({
   handleDrawerOpen,
   handleDrawerClose,
+  menuWidth,
   open,
-}) => {
+  md,
+}: HeaderProps) => {
   const drawer = (
     <Box>
       <Divider />
@@ -74,10 +76,10 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { md: menuWidth }, flexShrink: { sm: 0 } }}
       aria-label="mailbox folders"
     >
-      <AppBar open={open}>
+      <AppBar open={open} sidebar={menuWidth}>
         <StyledToolbar>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton
@@ -110,14 +112,18 @@ const Header: React.FC<HeaderProps> = ({
 
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: menuWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: menuWidth,
             boxSizing: "border-box",
           },
         }}
-        variant="persistent"
+        variant={md ? "temporary" : "persistent"}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        onClose={handleDrawerClose}
         anchor="left"
         open={open}
       >
@@ -166,16 +172,16 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "sidebar",
+})<AppBarProps>(({ theme, open, sidebar }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   backgroundColor: theme.palette.primary.main,
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
+    width: `calc(100% - ${sidebar}px)`,
+    marginLeft: `${sidebar}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,

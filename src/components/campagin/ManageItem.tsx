@@ -1,6 +1,6 @@
 import {
   styled,
-  CardContent,
+  Box,
   Typography,
   List,
   ListItem,
@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 const ManageItem = () => {
   const navigate = useNavigate();
   return (
-    <StyledAdListWrap item xs={2} sm={4} md={4}>
-      <CardContent>
+    <Grid item xs={12} md={6} lg={4}>
+      <Box sx={{ padding: 2, border: "1px solid #dedede" }}>
         <Typography sx={{ fontSize: 18 }} gutterBottom>
           제목
         </Typography>
@@ -60,13 +60,9 @@ const ManageItem = () => {
         >
           수정하기
         </Button>
-      </CardContent>
-    </StyledAdListWrap>
+      </Box>
+    </Grid>
   );
 };
 
 export default ManageItem;
-
-const StyledAdListWrap = styled(Grid)({
-  border: "1px solid #dedede",
-});

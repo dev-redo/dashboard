@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Container, Box, styled, useMediaQuery } from "@mui/material";
 import Header from "./Header";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const drawerWidth = 240;
+const sidebarWidth = 240;
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps) => {
   const [open, setOpen] = useState(true);
+  const md = useMediaQuery("(max-width:900px)");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -21,14 +21,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", background: "#f6f6f6" }}>
       <Header
         handleDrawerOpen={handleDrawerOpen}
         handleDrawerClose={handleDrawerClose}
+        menuWidth={sidebarWidth}
         open={open}
+        md={md}
       />
-      <Main open={open}>
-        <StyledWrapper>{children}</StyledWrapper>
+      <Main open={open} md={md}>
+        <StyledWrapper maxWidth="xl">{children}</StyledWrapper>
       </Main>
     </Box>
   );
@@ -36,25 +38,33 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
 export default Layout;
 
-const StyledWrapper = styled(Box)({
+const StyledWrapper = styled(Container, {
+  shouldForwardProp: (prop) => prop !== "md",
+})<{
+  md?: boolean;
+}>(({ theme, md }) => ({
   overflowY: "scroll",
+  width: "100%",
   height: "100%",
-  background: "#f6f6f6",
-  paddingTop: 64,
-});
+  paddingTop: 100,
+  paddingBottom: 80,
+}));
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "md",
+})<{
   open?: boolean;
-}>(({ theme, open }) => ({
+  md?: boolean;
+}>(({ theme, open, md }) => ({
   flexGrow: 1,
-  //padding: theme.spacing(3),
+  width: "100%",
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
+  marginLeft: md ? 0 : `-${sidebarWidth}px`,
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${sidebarWidth}px)`,
     marginLeft: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
