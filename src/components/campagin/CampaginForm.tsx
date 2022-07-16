@@ -1,18 +1,24 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import { Box, styled, Input, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {useRecoilState} from 'recoil'
+import { campaginRequestType } from "../../store/campagin";
 
-interface TypeProps {
-  type: string;
-}
+const CampaginForm = () => {
+  const [isEdit, setIsEdit] = useRecoilState(campaginRequestType);
 
-const CampaginForm = ({ type }: TypeProps) => {
+  useEffect(() => {
+    if(isEdit==="edit"){
+      setIsEdit("수정하기")
+    }else setIsEdit("만들기")
+  })
+
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Title>광고 {`${type}`}</Title>
+        <Title>광고 {isEdit}</Title>
         <AddForm>
           <InputBox>
             <Input
@@ -48,7 +54,7 @@ const CampaginForm = ({ type }: TypeProps) => {
               padding: "0 1.5rem",
             }}
           >
-            {`${type}`}
+            {isEdit}
           </Button>
         </ButtonBox>
       </Box>
@@ -63,12 +69,12 @@ const Title = styled("header")({
   fontWeight: "700",
   fontSize: "1.5rem",
   color: "#4e4e4e",
-  margin: "3rem 0",
+  margin: "1rem 0",
 });
 const AddForm = styled("div")({
   backgroundColor: "pink",
-  width: "31rem",
-  height: "37rem",
+  width: "30rem",
+  height: "36rem",
   background: "#ffffff",
   boxShadow: "5px 5px 10px 5px rgba(0, 0, 0, 0.25)",
   borderRadius: "3rem",
@@ -81,7 +87,7 @@ const ButtonBox = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   margin: "0 auto",
-  marginTop: "5rem",
+  marginTop: "2rem",
 });
 const InputBox = styled("div")({
   width: "25rem",

@@ -5,9 +5,7 @@ import CampaginForm from "../components/campagin/CampaginForm";
 const CreateCampagin = () => {
   return (
     <Layout>
-      <StyledContents>
-        <CampaginForm type="만들기" />
-      </StyledContents>
+        <CampaginForm />
     </Layout>
   );
 };

@@ -5,9 +5,7 @@ import { Box, styled } from "@mui/material";
 const EditCampagin = () => {
   return (
     <Layout>
-      <StyledContents>
-        <CampaginForm type="수정하기" />
-      </StyledContents>
+        <CampaginForm />
     </Layout>
   );
 };
