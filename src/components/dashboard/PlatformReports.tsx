@@ -14,10 +14,12 @@ const PlatformReports = () => {
   return (
     <StyledItem>
       <StackedBarChart />
-      {/* TODO: 가로스크롤? */}
-
-      <TableContainer sx={{ overflowX: "auto", width: "100%", mt: 2 }}>
-        <Table stickyHeader aria-label="simple table">
+      <TableContainer sx={{ oveflow: "scroll", mt: 2 }}>
+        <Table
+          stickyHeader
+          aria-label="simple table"
+          sx={{ minWidth: "1200px" }}
+        >
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
@@ -27,13 +29,11 @@ const PlatformReports = () => {
               <TableCell>노출 수</TableCell>
               <TableCell>클릭 수</TableCell>
               <TableCell>클릭율</TableCell>
-              <TableCell>클릭율</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell>메타</TableCell>
-              <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
@@ -49,7 +49,6 @@ const PlatformReports = () => {
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
-              <TableCell>12.352</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>구글</TableCell>
@@ -59,11 +58,9 @@ const PlatformReports = () => {
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
-              <TableCell>12.352</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>총계</TableCell>
-              <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
               <TableCell>12.352</TableCell>
@@ -80,10 +77,14 @@ const PlatformReports = () => {
 
 export default PlatformReports;
 
-const StyledItem = styled(Box)({
+const StyledItem = styled(Box)(({ theme }) => ({
   paddingBlock: 30,
   paddingInline: 35,
+  [theme.breakpoints.down("md")]: {
+    marginTop: 20,
+    paddingInline: 16,
+  },
   background: "#fff",
   minHeight: 400,
   borderRadius: 5,
-});
+}));

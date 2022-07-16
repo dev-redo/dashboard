@@ -7,7 +7,7 @@ import {
   Link,
   Grid,
 } from "@mui/material";
-import AdManageItem from "./ManageItem";
+import ManageItem from "./ManageItem";
 
 const ManageList = () => {
   return (
@@ -33,13 +33,13 @@ const ManageList = () => {
         </Link>
       </Box>
 
-      <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-        <AdManageItem />
-        <AdManageItem />
-        <AdManageItem />
-        <AdManageItem />
-        <AdManageItem />
-        <AdManageItem />
+      <Grid container spacing={2}>
+        <ManageItem />
+        <ManageItem />
+        <ManageItem />
+        <ManageItem />
+        <ManageItem />
+        <ManageItem />
       </Grid>
     </StyledItem>
   );
@@ -47,11 +47,14 @@ const ManageList = () => {
 
 export default ManageList;
 
-const StyledItem = styled(Box)({
+const StyledItem = styled(Box)(({ theme }) => ({
   paddingBlock: 30,
   paddingInline: 35,
+  [theme.breakpoints.down("md")]: {
+    marginTop: 20,
+    paddingInline: 16,
+  },
   background: "#fff",
   minHeight: 400,
   borderRadius: 5,
-  width: "100%",
-});
+}));
