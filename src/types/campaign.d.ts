@@ -17,5 +17,5 @@ export type CampaignItems = CampaginItem[];
 
 export interface Campaign {
   count: number;
-  items: CampaignItems;
+  ads: CampaignItems;
 }

@@ -15,5 +15,5 @@ export interface OverallItem {
 export type OverallItems = OverallItem[];
 
 export interface Overall {
-  items: OverallItems;
+  daily: OverallItems;
 }
