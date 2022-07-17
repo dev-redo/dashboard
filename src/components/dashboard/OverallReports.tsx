@@ -8,6 +8,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Container,
+  Grid,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import DailyReportChart from "../charts/DailyReportChart";
@@ -57,40 +59,42 @@ const OverallReports = () => {
           </Select>
         </FormControl>
       </Box>
-      <StyledItem>
+      <StyledItem maxWidth="xl">
         {/* ad infomation */}
-        <Box sx={{ display: "flex", flexWrap: "wrap", mb: 5 }}>
+        <Grid container spacing={2} sx={{ mb: 5 }}>
           {/* 임의로 반복문 돌려줌 */}
           {["ROAS", "광고비", "노출 수", "클릭 수", "전환 수", "매출"].map(
             (text, index) => (
-              <StyledCard key={"card" + index}>
-                <CardContent>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {text}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: 18 }} color="#222">
-                      66%
+              <Grid key={"card" + index} item xs={12} sm={6} md={4}>
+                <StyledCard>
+                  <CardContent>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {text}
                     </Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                      1.1만회
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </StyledCard>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography sx={{ fontSize: 18 }} color="#222">
+                        66%
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                        1.1만회
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </StyledCard>
+              </Grid>
             )
           )}
-        </Box>
+        </Grid>
 
         <Box
           sx={{
@@ -101,7 +105,7 @@ const OverallReports = () => {
           }}
         >
           <Box>
-            <FormControl sx={{ minWidth: 120, mr: 2 }} size="small">
+            <StyleFormControl sx={{ mr: 1 }} size="small">
               <InputLabel id="demo-select-small1">select</InputLabel>
               <Select
                 labelId="demo-select-small1"
@@ -118,8 +122,8 @@ const OverallReports = () => {
                   CLICK
                 </MenuItem>
               </Select>
-            </FormControl>
-            <FormControl sx={{ minWidth: 120 }} size="small">
+            </StyleFormControl>
+            <StyleFormControl size="small">
               <InputLabel id="demo-select-small2">select</InputLabel>
               <Select
                 labelId="demo-select-small2"
@@ -135,9 +139,9 @@ const OverallReports = () => {
                   <em>클릭 수</em>
                 </MenuItem>
               </Select>
-            </FormControl>
+            </StyleFormControl>
           </Box>
-          <FormControl sx={{ minWidth: 120 }} size="small">
+          <StyleFormControl size="small">
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
@@ -151,7 +155,7 @@ const OverallReports = () => {
               <MenuItem value="week">주간</MenuItem>
               <MenuItem value="month">월간</MenuItem>
             </Select>
-          </FormControl>
+          </StyleFormControl>
         </Box>
         {/* 차트 */}
         <DailyReportChart />
@@ -162,24 +166,28 @@ const OverallReports = () => {
 
 export default OverallReports;
 
-const StyledItem = styled(Box)({
-  paddingBlock: 30,
-  paddingInline: 35,
+const StyledItem = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up("md")]: {
+    paddingBlock: 30,
+    paddingInline: 35,
+  },
+  [theme.breakpoints.down("md")]: {
+    marginTop: 20,
+    paddingInline: 16,
+  },
   background: "#fff",
   minHeight: 400,
   borderRadius: 5,
-});
+}));
+
+const StyleFormControl = styled(FormControl)(({ theme }) => ({
+  width: 120,
+  [theme.breakpoints.down("md")]: {
+    width: 100,
+  },
+}));
 
 const StyledCard = styled(Card)({
-  width: "32%",
-  marginTop: "2%",
-  marginRight: "2%",
   border: "1px solid #dedede",
   boxShadow: "none",
-  "&:nth-of-type(3n)": {
-    marginRight: 0,
-  },
-  "&:nth-of-type(-n+3)": {
-    marginTop: 0,
-  },
 });
