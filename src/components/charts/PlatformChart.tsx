@@ -15,13 +15,14 @@ import { useGetValuesByChannel } from "../../hooks/useGetValuesByChannel";
 import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachDayOfInterval, format } from 'date-fns'
 import ChannelReport from "../../data/channel-report.json";
 import {renderLegend} from './chartCustoms/Legend'
-
+import { useRecoilState } from "recoil";
+import { dynamicChartData, isMonthData } from "../../store/charts";
 
 const StackedBarChart = () => {
-
+  const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const lastDate = parseISO(ChannelReport[ChannelReport.length -1].date)
   const startDate = parseISO(ChannelReport[1].date)
-  const someDate = add(startDate, {days:6})
+  const someDate = add(startDate, {days:isMonth})
 
   const result = eachDayOfInterval({
     start: startDate,
@@ -30,7 +31,7 @@ const StackedBarChart = () => {
 
   const dateRange = result.map((x) => 
   (format(x, "yyyy-MM-dd")));
-  console.log(dateRange)
+  // console.log(dateRange)
  const data = useGetValuesByChannel(dateRange);
 
 
@@ -54,7 +55,7 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
   // console.log(data)
   return (
     // <ChartCard heading="스택 바!">
- 
+    <ResponsiveContainer width="100%" height={300}>
     <BarChart
       width={1000}
       height={400}
@@ -62,7 +63,7 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
       stackOffset="expand"
       margin={{
         top: 20,
-        right: 100,
+        right: 30,
         left: 60,
         bottom: 5
       }}
@@ -106,7 +107,7 @@ const colors = ['#82ca9d', '#8884d8', '#ec62e1', "#f8e749"];
         })}
       
     </BarChart>
- 
+    </ResponsiveContainer>
     // </ChartCard>
   );
 }
