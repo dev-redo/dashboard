@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Toolbar,
@@ -13,17 +13,24 @@ import {
   IconButton,
   Badge,
   Avatar,
-} from "@mui/material";
+} from '@mui/material';
 
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
-import Drawer from "@mui/material/Drawer";
-import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsIcon from "@mui/icons-material/Settings";
+import Drawer from '@mui/material/Drawer';
+import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { fetchedOverall } from '../../api/fetchData';
+import { api } from '../../api/api';
+
+const test = fetchedOverall();
+console.log('Header - test : ', test);
+const test2 = api.getOverall();
+console.log('Header - test2 : ', test2);
 
 interface HeaderProps {
   handleDrawerOpen: () => void;
@@ -49,7 +56,7 @@ const Header = ({
     <Box>
       <Divider />
       <List sx={{ padding: 0 }}>
-        <StyledLink href="/" color="inherit">
+        <StyledLink href='/' color='inherit'>
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -59,7 +66,7 @@ const Header = ({
             </ListItemButton>
           </ListItem>
         </StyledLink>
-        <StyledLink href="/campagin-manage" color="inherit">
+        <StyledLink href='/campagin-manage' color='inherit'>
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -75,32 +82,32 @@ const Header = ({
 
   return (
     <Box
-      component="nav"
+      component='nav'
       sx={{ width: { md: menuWidth }, flexShrink: { sm: 0 } }}
-      aria-label="mailbox folders"
+      aria-label='mailbox folders'
     >
       <AppBar open={open} sidebar={menuWidth}>
         <StyledToolbar>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
-              color="inherit"
-              aria-label="open drawer"
+              color='inherit'
+              aria-label='open drawer'
               onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
+              edge='start'
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography variant='h6' noWrap component='div'>
               Dashboard
             </Typography>
           </Box>
           <Icons>
             <Badge>
-              <NotificationsNoneIcon fontSize="large" />
+              <NotificationsNoneIcon fontSize='large' />
             </Badge>
             <Badge>
-              <SettingsIcon fontSize="large" />
+              <SettingsIcon fontSize='large' />
             </Badge>
             <UserBox>
               <Avatar sx={{ mr: 2 }} />
@@ -114,17 +121,17 @@ const Header = ({
         sx={{
           width: menuWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             width: menuWidth,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
           },
         }}
-        variant={md ? "temporary" : "persistent"}
+        variant={md ? 'temporary' : 'persistent'}
         ModalProps={{
           keepMounted: true,
         }}
         onClose={handleDrawerClose}
-        anchor="left"
+        anchor='left'
         open={open}
       >
         <DrawerHeader>
@@ -142,39 +149,39 @@ const Header = ({
 export default Header;
 
 const StyledLink = styled(Link)({
-  textDecoration: "none",
+  textDecoration: 'none',
   fontSize: 18,
-  display: "block",
+  display: 'block',
 });
 
 const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
 const Icons = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  gap: "20px",
+  display: 'flex',
+  alignItems: 'center',
+  gap: '20px',
 });
 
 const UserBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const DrawerHeader = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
+  justifyContent: 'flex-end',
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open" && prop !== "sidebar",
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'sidebar',
 })<AppBarProps>(({ theme, open, sidebar }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
+  transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
@@ -182,7 +189,7 @@ const AppBar = styled(MuiAppBar, {
   ...(open && {
     width: `calc(100% - ${sidebar}px)`,
     marginLeft: `${sidebar}px`,
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
