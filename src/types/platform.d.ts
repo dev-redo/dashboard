@@ -15,5 +15,5 @@ export interface PlatformItem {
 export type PlatformItems = PlatformItem[];
 
 export interface Platform {
-  items: PlatformItems;
+  daily: PlatformItems;
 }
