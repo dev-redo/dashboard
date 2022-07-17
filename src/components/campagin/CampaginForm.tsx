@@ -1,24 +1,28 @@
-import React,{ useEffect } from "react";
+import React from "react";
 import { Box, styled, Input, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {useRecoilState} from 'recoil'
-import { campaginRequestType } from "../../store/campagin";
+// import {useRecoilState} from 'recoil'
+// import { campaginRequestType } from "../../store/campagin";
 
-const CampaginForm = () => {
-  const [isEdit, setIsEdit] = useRecoilState(campaginRequestType);
+interface TypeProps {
+  type: string;
+}
 
-  useEffect(() => {
-    if(isEdit==="edit"){
-      setIsEdit("수정하기")
-    }else setIsEdit("만들기")
-  })
+const CampaginForm = ({ type }: TypeProps) => {
+  // const [isEdit, setIsEdit] = useRecoilState(campaginRequestType);
+
+  // useEffect(() => {
+  //   if(isEdit==="edit"){
+  //     setCampaginRequestType("수정하기")
+  //   }else setCampaginRequestType("만들기")
+  // })
 
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Title>광고 {isEdit}</Title>
+        <Title>광고 {`${type}`}</Title>
         <AddForm>
           <InputBox>
             <Input
@@ -54,7 +58,7 @@ const CampaginForm = () => {
               padding: "0 1.5rem",
             }}
           >
-            {isEdit}
+            {`${type}`}
           </Button>
         </ButtonBox>
       </Box>
