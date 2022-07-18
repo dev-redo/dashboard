@@ -21,9 +21,8 @@ const ManageList = () => {
     //   note.text.toLowerCase().includes(searchText)
     // )}
     const result = campaignList.filter((word) =>
-      console.log(word.status === "active")
+      console.log(word.status === event.target.value)
     );
-    // console.log(result);
   };
   return (
     <StyledItem>
@@ -46,7 +45,6 @@ const ManageList = () => {
           광고 만들기
         </Link>
       </Box>
-
       <Grid container spacing={2}>
         <ManageItem props={campaignList} />
       </Grid>

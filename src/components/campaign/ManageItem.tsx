@@ -12,11 +12,7 @@ import { useNavigate } from "react-router-dom";
 // import CampaignItems from "../../types/campaign";
 
 const ManageItem = (props: any) => {
-  // console.log(props.props);
-
-  // const campaignList = CampaignList.ads;
   const campaignList = props.props;
-  console.log(campaignList);
 
   const navigate = useNavigate();
   return (
@@ -63,15 +59,14 @@ const ManageItem = (props: any) => {
                   primary="광고 비용"
                   sx={{ width: 10, color: "#929292" }}
                 />
-                <ListItemText primary={data.report.cost.toLocaleString()} />
+                <ListItemText primary={data.report.cost.toLocaleString()} />원
               </ListItem>
             </List>
             <Button
               variant="outlined"
               color="primary"
               sx={{ mt: 2 }}
-              // onClick={() => navigate("/campaign-edit")}
-              onClick={() => navigate("/campaign-edit")}
+              onClick={() => {navigate(`/campaign-edit`, { state: data })}}
             >
               수정하기
             </Button>
