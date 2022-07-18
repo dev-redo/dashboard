@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { dataRequest } from "./services/service";
-import { AxiosResponse } from "axios";
+import { useState } from 'react';
+import { apiRequest } from './instance/instance';
+import { AxiosResponse } from 'axios';
 
 export const useCampaignMethod = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -11,7 +11,7 @@ export const useCampaignMethod = () => {
     }
   };
   const getCampaign = async () => {
-    const response = await dataRequest.get("/campaign");
+    const response = await apiRequest.get('/campaign');
     updateCampaign(response);
   };
 

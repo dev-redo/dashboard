@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Toolbar,
@@ -15,7 +15,9 @@ import {
   Avatar,
 } from '@mui/material';
 
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar, {
+  AppBarProps as MuiAppBarProps,
+} from '@mui/material/AppBar';
 
 import Drawer from '@mui/material/Drawer';
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
@@ -24,11 +26,13 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { fetchedOverall } from '../../api/fetchData';
 
-// 일단 여기 test1 처럼 가져오시면 됩니다.
+import { fetchedOverall } from '../../api/fetchData';
+import { useOverallModel } from '../../api/models/useOverallModel';
+
+// TODO: 삭제 예정
 const test1 = fetchedOverall();
-console.log('Header - test : ', test1);
+// console.log('Header - test : ', test1);
 
 interface HeaderProps {
   handleDrawerOpen: () => void;
@@ -54,7 +58,7 @@ const Header = ({
     <Box>
       <Divider />
       <List sx={{ padding: 0 }}>
-        <StyledLink href='/' color='inherit'>
+        <StyledLink href="/" color="inherit">
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -64,7 +68,7 @@ const Header = ({
             </ListItemButton>
           </ListItem>
         </StyledLink>
-        <StyledLink href='/campaign-manage' color='inherit'>
+        <StyledLink href="/campaign-manage" color="inherit">
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -78,34 +82,48 @@ const Header = ({
     </Box>
   );
 
+  // TODO: 삭제 예정
+  useEffect(() => {
+    const test2 = async () => {
+      const test3 = await fetchedOverall();
+      // console.log(test3);
+    };
+    test2();
+  }, []);
+
+  const { reports, getReports, getWeeklyReport } = useOverallModel();
+  console.log('reports: ', reports);
+  console.log('getReports: ', getReports);
+  console.log('getWeeklyReport: ', getWeeklyReport);
+
   return (
     <Box
-      component='nav'
+      component="nav"
       sx={{ width: { md: menuWidth }, flexShrink: { sm: 0 } }}
-      aria-label='mailbox folders'
+      aria-label="mailbox folders"
     >
       <AppBar open={open} sidebar={menuWidth}>
         <StyledToolbar>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
-              color='inherit'
-              aria-label='open drawer'
+              color="inherit"
+              aria-label="open drawer"
               onClick={handleDrawerOpen}
-              edge='start'
+              edge="start"
               sx={{ mr: 2, ...(open && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant='h6' noWrap component='div'>
+            <Typography variant="h6" noWrap component="div">
               Dashboard
             </Typography>
           </Box>
           <Icons>
             <Badge>
-              <NotificationsNoneIcon fontSize='large' />
+              <NotificationsNoneIcon fontSize="large" />
             </Badge>
             <Badge>
-              <SettingsIcon fontSize='large' />
+              <SettingsIcon fontSize="large" />
             </Badge>
             <UserBox>
               <Avatar sx={{ mr: 2 }} />
@@ -129,7 +147,7 @@ const Header = ({
           keepMounted: true,
         }}
         onClose={handleDrawerClose}
-        anchor='left'
+        anchor="left"
         open={open}
       >
         <DrawerHeader>
@@ -177,7 +195,7 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'sidebar',
+  shouldForwardProp: prop => prop !== 'open' && prop !== 'sidebar',
 })<AppBarProps>(({ theme, open, sidebar }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
