@@ -4,11 +4,13 @@ type ChannelType = "google" | "naver" | "facebook" | "kakao";
 
 export const useGetValuesByChannel = (dateRange:any) => {
 
-  const receivedDateReduce = dateRange.reduce((acc: Array<object>, current:string) => {
+  const receivedDateReduce = dateRange.reduce((acc: object[], current:string) => {
     if (current) {const values = ChannelReport.filter(value => value.date === current);
     acc.push(...values);}
     return acc;
   }, []);
+
+  // console.log(receivedDateReduce)
 
   const imp = {name: '노출수', imp: { google: 0, naver: 0, facebook: 0, kakao: 0 }}
   const cost = {name: '광고단가', cost : { google: 0, naver: 0, facebook: 0, kakao: 0 }}

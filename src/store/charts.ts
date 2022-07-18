@@ -1,22 +1,8 @@
 import { atom, selectorFamily } from 'recoil';
 
-// 광고비COST 십만-오십만단위
-// 매출 ROAS 백-천단위
-// 노출수 IMP 만-삼십만단위
-// 클릭수 CLICK 백단위
-// 전환수 CONV 십단위
-
-// 전환값 CONVVALUE 십-백만단위
-// platform에는 conv값이 없음
-
-export const chartFirstData = atom({
-  key: 'chartFirstData',
-  default: "roas",
-});
-
-export const chartSecondData = atom({
-  key: 'chartSecondData',
-  default: "click",
+export const dateData = atom({
+  key: 'dateData',
+  default: "",
 });
 
 export const isWeekData = atom({
@@ -26,7 +12,36 @@ export const isWeekData = atom({
 
 export const isMonthData = atom({
   key: 'isMonthData',
-  default: 30,
+  default: 6,
 });
 
+export const dynamicChartData = atom({
+  key: 'dynamicChartData',
+  default: [{
+    firstData: 'roas',
+    secondData: 'click',
+  },
+  {
+    firstDataName: '투자 대비 수익',
+    firstDataUnit: '원',
+    secondDataUnit: '회',
+    secondDataName: '클릭수',
+  }
+],
+});
+
+// default: [{
+//   cost: 'cost',
+//   convValue: 'convValue',
+// }, {
+//   roas: 'roas',
+//   click: 'click'
+// },
+// {
+//   imp: 'imp',
+//   conv: 'conv'
+// }
+// ],
+
+// platform에는 conv값이 없음
 
