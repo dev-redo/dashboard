@@ -9,10 +9,13 @@ import {
   Grid,
 } from "@mui/material";
 import DailyReportChart from "../charts/OverallChart";
-import {OverallDateDropdown, OverallMiddleDropdown, OverallMonthDropdown} from "./OverallDropdowns"
+import {
+  OverallDateDropdown,
+  OverallMiddleDropdown,
+  OverallMonthDropdown,
+} from "./OverallDropdowns";
 
 const OverallReports = () => {
-
   return (
     <>
       <Box
@@ -71,8 +74,8 @@ const OverallReports = () => {
             mb: 1,
           }}
         >
-          <Box>  
-          <OverallMiddleDropdown />
+          <Box>
+            <OverallMiddleDropdown />
           </Box>
           <OverallMonthDropdown />
         </Box>

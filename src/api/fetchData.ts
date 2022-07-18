@@ -1,7 +1,7 @@
-import { CampaignItems } from '../types/campaign';
-import { OverallItems } from './../types/overall.d';
-import { PlatformItems } from './../types/platform.d';
-import { api } from './api';
+import { CampaignItems } from "../types/campaign";
+import { OverallItems } from "./../types/overall.d";
+import { PlatformItems } from "./../types/platform.d";
+import { api } from "./api";
 
 // TODO: 여기서 dateFormat 같은거 쓰면 될 거같아요
 

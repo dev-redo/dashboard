@@ -1,12 +1,12 @@
-import Layout from '../components/layout/Layout';
-import { Box, styled, Typography } from '@mui/material';
-import ManageList from '../components/campaign/ManageList';
+import Layout from "../components/layout/Layout";
+import { Box, styled, Typography } from "@mui/material";
+import ManageList from "../components/campaign/ManageList";
 
-const Managecampaigns = () => {
+const ManageCampaigns = () => {
   return (
     <Layout>
       {/* <StyledContents> */}
-      <Typography variant='h6' sx={{ mb: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
         광고관리
       </Typography>
       <Box sx={{ flexGrow: 1 }}>
@@ -17,7 +17,7 @@ const Managecampaigns = () => {
   );
 };
 
-export default Managecampaigns;
+export default ManageCampaigns;
 
 const StyledContents = styled(Box)({
   paddingBlock: 50,

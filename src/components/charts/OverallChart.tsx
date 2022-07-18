@@ -7,68 +7,69 @@ import {
   YAxis,
   Tooltip,
   Legend,
-  Line
+  Line,
 } from "recharts";
-import ChartCard from './chartCustoms/ChartCard';
+import ChartCard from "./chartCustoms/ChartCard";
 import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
 import DailyReport from "../../data/daily-report.json";
-import {parseISO, differenceInWeeks, getWeekOfMonth, add, eachWeekOfInterval, format } from 'date-fns';
+import {
+  parseISO,
+  differenceInWeeks,
+  getWeekOfMonth,
+  add,
+  eachWeekOfInterval,
+  format,
+} from "date-fns";
 import { useRecoilState } from "recoil";
 import { dynamicChartData, isMonthData } from "../../store/charts";
 import { FlashOff } from "@mui/icons-material";
-
 
 const DailyReportChart = () => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
   const data = DailyReport.report;
-  const list:object[] = []
-  const shortWeekTemp = data.daily.map((v:any, index:number) => index >= 
-  isMonth ? "" : (
-    list.push(v)
-    ))
-    // console.log(list)
+  const list: object[] = [];
+  const shortWeekTemp = data.daily.map((v: any, index: number) =>
+    index >= isMonth ? "" : list.push(v)
+  );
+  // console.log(list)
 
-    const formatXAxis = (tickItem:string) => {
+  const formatXAxis = (tickItem: string) => {
+    return format(parseISO(tickItem), `MM월 dd일`);
+  };
 
-      return format(parseISO(tickItem), `MM월 dd일`)
-    
-    }
-  
   return (
     <ChartCard heading="이번주 광고 차트">
       {/* 최적 경우의 수  */}
 
-<button type="button" onClick={() => setIsMonth(30)}>
-/ 기간 /</button>
+      <button type="button" onClick={() => setIsMonth(30)}>
+        / 기간 /
+      </button>
 
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={list} style={{ fontWeight: 'bold' }} margin={{
-        top: 20,
-        right: 40,
-        left: 30,
-        bottom: 5
-      }}>
+        <LineChart
+          data={list}
+          style={{ fontWeight: "bold" }}
+          margin={{
+            top: 20,
+            right: 40,
+            left: 30,
+            bottom: 5,
+          }}
+        >
           <CartesianGrid
             vertical={false}
             stroke="#d6d9da"
             strokeDasharray="3 3"
           />
-          <XAxis
-            dataKey="date"
-            tickLine={false}
-            tickFormatter={formatXAxis}
-          />
+          <XAxis dataKey="date" tickLine={false} tickFormatter={formatXAxis} />
           <YAxis
             width={35}
             axisLine={false}
             tickLine={false}
             domain={["auto", "auto"]}
           />
-          <Tooltip
-            cursor={false}
-            contentStyle={TooltipContainerStyles}
-          />
+          <Tooltip cursor={false} contentStyle={TooltipContainerStyles} />
           <Line
             type="monotone"
             dataKey={dynamic[0].firstData}
