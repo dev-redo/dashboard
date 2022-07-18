@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import CampaginForm from "../components/campagin/CampaginForm";
 
-const CreateCampagin = () => {
+const Createcampaign = () => {
   return (
     <Layout>
         <CampaginForm type="만들기"/>
@@ -9,4 +9,4 @@ const CreateCampagin = () => {
   );
 };
 
-export default CreateCampagin;
+export default Createcampaign;

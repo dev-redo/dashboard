@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const campaginRequestType = atom({
-  key: 'campaginRequestType',
-  default: "edit",
+export const campaignRequestType = atom({
+  key: 'campaignRequestType',
+  default: 'edit',
 });
