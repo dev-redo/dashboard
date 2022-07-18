@@ -25,12 +25,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { fetchedOverall } from '../../api/fetchData';
-import { api } from '../../api/api';
 
-const test = fetchedOverall();
-console.log('Header - test : ', test);
-const test2 = api.getOverall();
-console.log('Header - test2 : ', test2);
+// 일단 여기 test1 처럼 가져오시면 됩니다.
+const test1 = fetchedOverall();
+console.log('Header - test : ', test1);
 
 interface HeaderProps {
   handleDrawerOpen: () => void;
@@ -66,7 +64,7 @@ const Header = ({
             </ListItemButton>
           </ListItem>
         </StyledLink>
-        <StyledLink href='/campagin-manage' color='inherit'>
+        <StyledLink href='/campaign-manage' color='inherit'>
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>

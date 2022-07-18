@@ -12,7 +12,7 @@ export const api = {
 };
 
 /*
-지난 플젝 수빈님 방식
+지난 플젝 수빈님  방식
 
 export const api = {
   getOverall: async () => {

@@ -13,7 +13,7 @@ export interface CampaignItem {
   };
 }
 
-export type CampaignItems = CampaginItem[];
+export type CampaignItems = campaignItem[];
 
 export interface Campaign {
   count: number;
