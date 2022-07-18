@@ -14,6 +14,7 @@ export interface CampaignItem {
 }
 
 export type CampaignItems = campaignItem[];
+console.log(CampaignItem);
 
 export interface Campaign {
   count: number;

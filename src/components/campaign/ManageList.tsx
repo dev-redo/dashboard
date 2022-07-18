@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   styled,
@@ -8,8 +9,22 @@ import {
   Grid,
 } from "@mui/material";
 import ManageItem from "./ManageItem";
+import CampaignList from "../../data/campaign-list.json";
+import axios from "axios";
 
 const ManageList = () => {
+  const campaignList = CampaignList.ads;
+  const [sortedList, setSortedList] = React.useState(campaignList);
+  const sortCampaignStatus = (event: any): any => {
+    console.log(event.target.value);
+    // campaignList={campaignList.filter((note) =>
+    //   note.text.toLowerCase().includes(searchText)
+    // )}
+    const result = campaignList.filter((word) =>
+      console.log(word.status === "active")
+    );
+    // console.log(result);
+  };
   return (
     <StyledItem>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
@@ -17,14 +32,14 @@ const ManageList = () => {
           <Select
             value=""
             displayEmpty
-            //onChange={}
+            onChange={sortCampaignStatus}
             inputProps={{ "aria-label": "Without label" }}
           >
             <MenuItem value="">
               <em>전체 광고</em>
             </MenuItem>
-            <MenuItem value={10}>진행중</MenuItem>
-            <MenuItem value={20}>종료</MenuItem>
+            <MenuItem value={"active"}>진행중</MenuItem>
+            <MenuItem value={"ended"}>종료</MenuItem>
           </Select>
         </FormControl>
         <Link href="/campaign-create" underline="none">
@@ -33,7 +48,7 @@ const ManageList = () => {
       </Box>
 
       <Grid container spacing={2}>
-        <ManageItem />
+        <ManageItem props={campaignList} />
       </Grid>
     </StyledItem>
   );
