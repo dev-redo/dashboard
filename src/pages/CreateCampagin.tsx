@@ -1,18 +1,12 @@
-import Layout from '../components/layout/Layout';
-import { Box, styled } from '@mui/material';
-import campaignForm from '../components/campaign/campaignForm';
+import Layout from "../components/layout/Layout";
+import CampaginForm from "../components/campagin/CampaginForm";
 
 const Createcampaign = () => {
   return (
     <Layout>
-      <campaignForm />
+        <CampaginForm type="만들기"/>
     </Layout>
   );
 };
 
 export default Createcampaign;
-
-const StyledContents = styled(Box)({
-  paddingBlock: 50,
-  paddingInline: 40,
-});
