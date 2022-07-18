@@ -14,22 +14,24 @@ import axios from "axios";
 
 const ManageList = () => {
   const campaignList = CampaignList.ads;
-  const [sortedList, setSortedList] = React.useState(campaignList);
-  const sortCampaignStatus = (event: any): any => {
-    console.log(event.target.value);
-    // campaignList={campaignList.filter((note) =>
-    //   note.text.toLowerCase().includes(searchText)
-    // )}
-    const result = campaignList.filter((word) =>
-      console.log(word.status === event.target.value)
+  const [sortedList, setSortedList] = React.useState('');
+
+    const sortedCampaign = campaignList.filter((word) =>
+      (sortedList !== '' 
+      ? word.status === sortedList
+      : word
+      )
     );
+    const sortCampaignStatus = (event: any): any => {
+      setSortedList(event.target.value);
   };
+  
   return (
     <StyledItem>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
         <FormControl sx={{ minWidth: 120 }} size="small">
           <Select
-            value=""
+            value={sortedList}
             displayEmpty
             onChange={sortCampaignStatus}
             inputProps={{ "aria-label": "Without label" }}
@@ -46,7 +48,7 @@ const ManageList = () => {
         </Link>
       </Box>
       <Grid container spacing={2}>
-        <ManageItem props={campaignList} />
+        <ManageItem props={sortedCampaign} />
       </Grid>
     </StyledItem>
   );
