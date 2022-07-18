@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { dataRequest } from './../services/service';
+import { dataRequest } from '../services/service';
 import { AxiosResponse } from 'axios';
 
-import { OverallItems } from '../types/overall';
+import { OverallItems } from '../../types/overall';
 
 export const useOverallModel = () => {
   const [reports, setReports] = useState<OverallItems[]>([]);

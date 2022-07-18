@@ -1,16 +1,16 @@
-import Layout from "../components/layout/Layout";
-import { Box, styled } from "@mui/material";
-import CampaginForm from "../components/campagin/CampaginForm";
+import Layout from '../components/layout/Layout';
+import { Box, styled } from '@mui/material';
+import campaignForm from '../components/campaign/campaignForm';
 
-const CreateCampagin = () => {
+const Createcampaign = () => {
   return (
     <Layout>
-        <CampaginForm />
+      <campaignForm />
     </Layout>
   );
 };
 
-export default CreateCampagin;
+export default Createcampaign;
 
 const StyledContents = styled(Box)({
   paddingBlock: 50,
