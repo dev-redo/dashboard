@@ -181,7 +181,7 @@ const CreateCampaign = (match: object) => {
               padding: '0 1.5rem',
             }}
           >
-            수정하기
+            광고 만들기
           </Button>
         </ButtonBox>
       </Box>
