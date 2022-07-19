@@ -104,6 +104,7 @@ const StackedBarChart = () => {
   // console.log(data)
   return (
     // <ChartCard heading="스택 바!">
+    
     <ResponsiveContainer width="100%" height={300}>
       <BarChart
         width={1000}
