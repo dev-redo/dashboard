@@ -18,15 +18,24 @@ const Dashboard = () => {
   // }, []);
 
   // console.log('reports: ', reports);
-  return (
-    <Layout>
-      <OverallReports />
+  React.useEffect(() => {
+    setStart('2022-02-01')
+    setEnd('2022-02-05')
+  }, [])
 
-      <Typography variant="h6" sx={{ mt: 6, mb: 2 }}>
-        매체 현황
-      </Typography>
-      <PlatformReports />
-    </Layout>
+  return (
+
+    <Layout>
+          {start !== undefined && end && <>
+            <OverallReports />
+
+            <Typography variant="h6" sx={{ mt: 6, mb: 2 }}>
+              매체 현황
+            </Typography>
+            <PlatformReports />
+            </>}
+                </Layout>
+  
   );
 };
 
