@@ -94,6 +94,12 @@ const Header = ({
   // console.log('reports: ', reports);
   // console.log('getReports: ', getReports);
   // console.log('getWeeklyReport: ', getWeeklyReport);
+  
+    React.useEffect(() => {
+    setStart('2022-02-01')
+    setEnd('2022-02-05')
+  }, [])
+  
   React.useEffect(() => {
     getWeeklyReport(start, end);
     return () => { setOverall(reports)
