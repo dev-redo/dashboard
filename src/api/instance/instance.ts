@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { httpRequest } from '../http/HttpRequest';
+import { httpRequest } from '../http/httpRequest';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8000',
