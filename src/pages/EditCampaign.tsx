@@ -1,70 +1,58 @@
 import Layout from '../components/layout/Layout';
-import CampaignForm from '../components/campaign/CampaignForm';
 import { useLocation } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
-import { Box, styled, Input, Button, TextField } from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { Box, styled, Button, TextField, FormControl, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const EditCampaign = (match: object) => {
   const location = useLocation();
-  const compaignById: any = location.state;
-  console.log(compaignById);
+  const campaignById: any = location.state;
+console.log(campaignById);
 
-  // const [previousTitle, setPreviousTitle] = React.useState(
-  //   compaignById.title,
-  // );
-  // const [previousStatus, setStatus] = React.useState(
-  //   compaignById.status,
-  // );
-  // const [previousDate, setDate] = React.useState(
-  //   compaignById.startDate,
-  // );
-  // const [previousBudget, setBudget] = React.useState(
-  //   compaignById.budget,
-  // );
-  // const [previousRoas, setRoas] = React.useState(
-  //   compaignById.report.roas,
-  // );
-  // const [previousConvValue, setConvValue] = React.useState(
-  //   compaignById.report.convValue,
-  // );
-  // const [previousCost, setCost] = React.useState(
-  //   compaignById.report.cost,
-  // );
-
-  // const titleRef = useRef<HTMLInputElement | any>(null);
-  // const statusRef = useRef<HTMLDivElement | any>(null);
-  // const dateRef = useRef<HTMLDivElement | any>(null);
-  // const budgetRef = useRef<HTMLDivElement | any>(null);
-  // const roasRef = useRef<HTMLDivElement | any>(null);
-  // const convValueRef = useRef<HTMLDivElement | any>(null);
-  // const costRef = useRef<HTMLDivElement | any>(null);
+  const navigate = useNavigate();
+ 
+  const titleRef = useRef<HTMLInputElement | any>(null);
+  const startDateRef = useRef<HTMLDivElement | any>(null);
+  const endDateRef = useRef<HTMLDivElement | any>(null);
+  const budgetRef = useRef<HTMLDivElement | any>(null);
+  const roasRef = useRef<HTMLDivElement | any>(null);
+  const convValueRef = useRef<HTMLDivElement | any>(null);
+  const costRef = useRef<HTMLDivElement | any>(null);
 
   const [inputs, setInputs] = useState({
-    title: compaignById.title,
-    status: compaignById.status,
-    date: compaignById.startDate,
-    budget: compaignById.budget,
-    roas: compaignById.report.roas,
-    convValue: compaignById.report.convValue,
-    cost: compaignById.report.cost,
+    title: campaignById.title,
+    status: campaignById.status,
+    startDate: campaignById.startDate.substr(0,10),
+    endDate: campaignById.endDate.substr(0,10),
+    budget: campaignById.budget.toLocaleString(),
+    roas: campaignById.report.roas,
+    convValue: campaignById.report.convValue.toLocaleString(),
+    cost: campaignById.report.cost.toLocaleString(),
   });
-  const { title, status, date, budget, roas, convValue, cost } =
+  const { title,startDate, endDate, budget, roas, convValue, cost } =
     inputs;
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { value, name } = event.target;
-    console.log(value);
+    console.log(value); //수정한 값
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
 
-  const ariaLabel = { 'aria-label': 'description' };
-  const navigate = useNavigate();
+  const [type, setType] = React.useState('');
+  const [postedStatus, setPostedStatus] = React.useState('');
 
+  const handleCampaignType = (event: any) => {
+    setType(event.target.value);
+  };
+  const handleCampaignStatus = (event: any) => {
+    setPostedStatus(event.target.value);
+  };
+
+  
   return (
     <Layout>
       {/* <CampaignForm type="수정하기" campaignDataById={location.state} /> */}
@@ -76,53 +64,69 @@ const EditCampaign = (match: object) => {
               id="standard-multiline-flexible"
               label="제목"
               multiline
-              value={title}
-              // ref={titleRef}
+              defaultValue={title}
+              ref={titleRef}
               onChange={handleChange}
               variant="standard"
             />
-            <TextField
-              id="standard-multiline-flexible"
-              label="상태"
-              multiline
-              value={status}
-              // ref={statusRef}
-              onChange={handleChange}
-              variant="standard"
-            />
-            <TextField
-              id="standard-multiline-flexible"
-              label="광고 생성일"
-              multiline
-              value={date}
-              // ref={dateRef}
-              onChange={handleChange}
-              variant="standard"
-            />
+            <FormControl
+              sx={{ minWidth: 120, marginTop: 2 }}
+              size="small"
+            >
+              <Select
+                defaultValue={type}
+                onChange={handleCampaignType}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+              >
+                <MenuItem value="">
+                  <em>광고 타입</em>
+                </MenuItem>
+                <MenuItem value={'WEB'}>WEB</MenuItem>
+                <MenuItem value={'APP'}>APP</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               id="standard-multiline-flexible"
               label="일 희망 예산"
               multiline
-              value={budget}
-              // ref={budgetRef}
+              ref={budgetRef}
+              defaultValue={budget}
+              onChange={handleChange}
+              variant="standard"
+            />
+            <FormControl
+              sx={{ minWidth: 120, marginTop: 2 }}
+              size="small"
+            >
+              <Select
+                defaultValue={postedStatus}
+                onChange={handleCampaignStatus}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+              >
+                <MenuItem value="">
+                  <em>광고 상태</em>
+                </MenuItem>
+                <MenuItem value={'ACTIVE'}>ACTIVE</MenuItem>
+                <MenuItem value={'ENDED'}>ENDED</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              id="standard-multiline-flexible"
+              label="광고 생성일"
+              multiline
+              ref={startDateRef}
+              defaultValue={startDate}
               onChange={handleChange}
               variant="standard"
             />
             <TextField
               id="standard-multiline-flexible"
-              label="광고 수익률"
+              label="광고 마감일"
               multiline
-              value={roas}
-              // ref={roasRef}
-              onChange={handleChange}
-              variant="standard"
-            />
-            <TextField
-              id="standard-multiline-flexible"
-              label="매출"
-              multiline
-              value={convValue}
-              // ref={convValueRef}
+              ref={endDateRef}
+              defaultValue={endDate}
               onChange={handleChange}
               variant="standard"
             />
@@ -130,8 +134,26 @@ const EditCampaign = (match: object) => {
               id="standard-multiline-flexible"
               label="광고 비용"
               multiline
-              value={cost}
-              // ref={costRef}
+              ref={costRef}
+              defaultValue={cost}
+              onChange={handleChange}
+              variant="standard"
+            />
+            <TextField
+              id="standard-multiline-flexible"
+              label="매출"
+              multiline
+              ref={convValueRef}
+              defaultValue={convValue}
+              onChange={handleChange}
+              variant="standard"
+            />
+            <TextField
+              id="standard-multiline-flexible"
+              label="광고 수익률"
+              multiline
+              ref={roasRef}
+              defaultValue={roas}
               onChange={handleChange}
               variant="standard"
             />
@@ -156,6 +178,7 @@ const EditCampaign = (match: object) => {
               backgroundColor: '#586CF5',
               padding: '0 1.5rem',
             }}
+            onClick={() => {navigate(`/ads/${campaignById.id}`, campaignById )}}
           >
             수정하기
           </Button>
@@ -198,7 +221,7 @@ const InputBox = styled('div')({
   flexDirection: 'column',
   justifyContent: 'space-between',
   color: '#acacac',
-  padding: '6rem 2rem',
+  padding: '4rem 2rem',
   boxSizing: 'border-box',
   margin: '0 auto',
 });
