@@ -19,17 +19,16 @@ export const fetchedOverall = () => {
   }
 };
 
-export const fetchedPlatform = () => {
+export const fetchedPlatform = async () => {
   const platform: PlatformItems = [];
   try {
-    api.getOverall().then((response) => {
-      platform.push(response);
-    });
+    const response = await api.getPlatform();
+    platform.push(response.data);
   } catch (error) {
     console.error(error);
-
-    return platform;
   }
+
+  return platform;
 };
 
 export const fetchedCampaign = () => {
