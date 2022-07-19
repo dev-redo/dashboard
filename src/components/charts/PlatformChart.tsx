@@ -49,6 +49,9 @@ const StackedBarChart = () => {
   const [last, setLast] = useRecoilState(lastData)
   const [first, setFirst] = useRecoilState(firstData)
   const [platform, setPlatform] = useRecoilState(platformData)
+
+  
+
   const d = eachDayOfInterval(
     { start: parseISO(start), end: parseISO(end) }
   )
@@ -57,6 +60,7 @@ const StackedBarChart = () => {
   React.useEffect(() => {
     //setDateValue(date);
     //console.log(platformDate);
+    
     getPlatformChartData(parseISO(start), d.length).then((result) =>
     setPlatform(result)
     );
