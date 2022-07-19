@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   styled,
@@ -9,8 +10,30 @@ import {
   TableBody,
 } from "@mui/material";
 import StackedBarChart from "../charts/PlatformChart";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { dateState, filteredPlatformDate } from "../../store/platform";
+import { dataParamType } from "../../types/platform";
+import {
+  getPlatformData,
+  getPlatformTableData,
+} from "../../api/usePlatformData";
 
 const PlatformReports = () => {
+  //const date: dataParamType = { date: new Date("2022-02-11"), day: 6 };
+
+  //const [dateValue, setDateValue] = useRecoilState(dateState);
+
+  useEffect(() => {
+    //setDateValue(date);
+    //console.log(platformDate);
+    getPlatformData(new Date("2022-02-11"), 6).then((result) =>
+      console.log("차트", result)
+    );
+    getPlatformTableData(new Date("2022-02-11"), 6).then((result) =>
+      console.log("테이블", result)
+    );
+  }, []);
+
   return (
     <StyledItem>
       <StackedBarChart />

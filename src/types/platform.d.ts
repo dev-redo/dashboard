@@ -12,7 +12,7 @@ export interface PlatformItem {
   roas: number;
 }
 
-type Channel = {
+export type Channel = {
   facebook: number;
   google: number;
   kakao: number;
@@ -35,4 +35,33 @@ export type PlatformItems = PlatformItem[];
 
 export interface Platform {
   daily: PlatformItems;
+}
+
+export interface PlatformSumType {
+  name: string;
+  sum: number;
+}
+
+export interface dataParamType {
+  date: Date;
+  day: number;
+}
+
+type Ad = {
+  imp: number;
+  cost: number;
+  click: number;
+  roas: number;
+  convValue: number;
+  ctr: number;
+  cvr: number;
+  cpc: number;
+  cpa: number;
+};
+
+export interface AdPlatformData {
+  facebook: Ad;
+  google: Ad;
+  kakao: Ad;
+  naver: Ad;
 }
