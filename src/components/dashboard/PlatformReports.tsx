@@ -16,14 +16,13 @@ import {
   filteredPlatformDate,
 } from '../../store/platform';
 import { dataParamType } from '../../types/platform';
-import {
-  getPlatformData,
-  getPlatformTableData,
-} from '../../api/usePlatformData';
+import { usePlatformModel } from '../../api/models/usePlatformModel';
 
 const PlatformReports = () => {
+  const { getPlatformChartData, getPlatformTableData } =
+    usePlatformModel();
   useEffect(() => {
-    getPlatformData(new Date('2022-02-11'), 6).then(result =>
+    getPlatformChartData(new Date('2022-02-11'), 6).then(result =>
       console.log('차트', result),
     );
     getPlatformTableData(new Date('2022-02-11'), 6).then(result =>
