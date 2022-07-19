@@ -45,41 +45,8 @@ export const usePlatformModel = () => {
         `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
       const data = response.data;
-
-      let chartData = data.reduce((acc: DataType, curr: DataType) => {
-        const { channel } = curr;
-        platformKeyNameList.forEach(name => {
-          const adDataValue = curr[name];
-          acc[name][channel] += adDataValue;
-        });
-
-        return acc;
-      }, initialChartFormat);
-
-      for (let name in chartData) {
-        if (name === 'roas' || name === 'ctr' || name === 'cvr') {
-          for (let channel in chartData[name]) {
-            const avgValue =
-              Math.round((chartData[name][channel] / day + 1) * 100) /
-              100;
-            chartData[name][channel] = avgValue;
-          }
-        }
-      }
-
-      let chartSumData: object[] = [];
-
-      Object.keys(chartData).forEach(value => {
-        let sum = 0;
-        let sumObj: PlatformSumType = { name: value, sum: 0 };
-        for (let name in chartData[value]) {
-          sum += chartData[value][name];
-        }
-        sumObj.sum = sum;
-        chartSumData.push(sumObj);
-      });
-
-      return { chartData, chartSumData };
+      return data;
+      
     } catch (error) {}
   };
 

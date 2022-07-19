@@ -22,17 +22,21 @@ import {
 } from "date-fns";
 import { useRecoilState } from "recoil";
 import { dynamicChartData, isMonthData } from "../../store/charts";
-import { FlashOff } from "@mui/icons-material";
+import { useOverallModel } from '../../api/models/useOverallModel';
+import {overallData} from "../../store/global";
 
 const DailyReportChart = () => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
   const data = DailyReport.report;
+  const [overall, setOverall] = useRecoilState(overallData)
+  console.log(overall)
+  const { reports, getReports, getWeeklyReport } = useOverallModel();
   const list: object[] = [];
   const shortWeekTemp = data.daily.map((v: any, index: number) =>
     index >= isMonth ? "" : list.push(v)
   );
-  // console.log(list)
+
 
   const formatXAxis = (tickItem: string) => {
     return format(parseISO(tickItem), `MM월 dd일`);
@@ -48,7 +52,7 @@ const DailyReportChart = () => {
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart
-          data={list}
+          data={overall}
           style={{ fontWeight: "bold" }}
           margin={{
             top: 20,

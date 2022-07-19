@@ -1,14 +1,14 @@
 import ChannelReport from "../data/channel-report.json";
-import { PlatformItem } from '../types/platform'
+import { PlatformItem, PlatformItems } from '../types/platform'
 type ChannelType = "google" | "naver" | "facebook" | "kakao";
 
-export const useGetValuesByChannel = (dateRange:any) => {
+export const useGetValuesByChannel = (platform:any) => {
 
-  const receivedDateReduce = dateRange.reduce((acc: object[], current:string) => {
-    if (current) {const values = ChannelReport.filter(value => value.date === current);
-    acc.push(...values);}
-    return acc;
-  }, []);
+  // const receivedDateReduce = dateRange.reduce((acc: object[], current:string) => {
+  //   if (current) {const values = ChannelReport.filter(value => value.date === current);
+  //   acc.push(...values);}
+  //   return acc;
+  // }, []);
 
   // console.log(receivedDateReduce)
 
@@ -20,7 +20,7 @@ export const useGetValuesByChannel = (dateRange:any) => {
 
   const pushDataInArray = (channel:ChannelType) => {
     
-    receivedDateReduce.forEach((v:PlatformItem) => {
+    platform.forEach((v:PlatformItem) => {
       if (v.channel === channel) {
         cost.cost[channel] = v.cost;
         imp.imp[channel] = v.imp;
@@ -37,6 +37,6 @@ export const useGetValuesByChannel = (dateRange:any) => {
  pushDataInArray('kakao')
 
   const data = [cost, imp, click, roas, convValue]
-// console.log(data)
+console.log(data)
   return data;
 }
