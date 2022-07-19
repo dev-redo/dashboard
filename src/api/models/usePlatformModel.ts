@@ -18,6 +18,8 @@ interface DataType {
   channel?: any;
 }
 
+const BASE_URL = 'http://localhost:8000';
+
 export const usePlatformModel = () => {
   const [platformReport, setPlatformReport] = useState<
     PlatformItems[]
@@ -40,7 +42,7 @@ export const usePlatformModel = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
+        `${BASE_URL}/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
       const data = response.data;
       return data;
@@ -58,7 +60,7 @@ export const usePlatformModel = () => {
       // );
 
       const response = await axios.get(
-        `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
+        `${BASE_URL}/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
       const data = response.data;
 
@@ -99,7 +101,6 @@ export const usePlatformModel = () => {
       const tableSumData = platformKeyNameList.map(name => {
         const value = tableArr.reduce(
           (acc: number, curr: object | any) => {
-            console.log(acc, curr);
             return acc + curr[name];
           },
           0,
