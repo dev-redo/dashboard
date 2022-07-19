@@ -116,7 +116,9 @@ console.log(type)
           
 
         </Box>
-
+        {/* 차트 */}
+        <OverallChart />
+        {/* {fetchChart()} */}
       </StyledItem>
     </>
   );
