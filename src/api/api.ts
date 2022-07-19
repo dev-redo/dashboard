@@ -9,18 +9,3 @@ export const api = {
     axios.get(`${BASE_URL}/campaign`).then((response) => response.data),
   getPlatform: () => axios.get(`${BASE_URL}/platform`),
 };
-
-/*
-지난 플젝 수빈님  방식
-
-export const api = {
-  getOverall: async () => {
-    try {
-      const response = await axios.get(BASE_URL);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  },
-};
-*/
