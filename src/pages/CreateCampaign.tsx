@@ -16,19 +16,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const CreateCampaign = (match: object) => {
+  const navigate = useNavigate();
   const location = useLocation();
   console.log('state', location.state);
-  const [inputs, setInputs] = useState({
-    title: '',
-    status: '',
-    date: '',
-    budget: '',
-    roas: '',
-    convValue: '',
-    cost: '',
-  });
-  const { title, status, date, budget, roas, convValue, cost } =
-    inputs;
 
   const titleRef = useRef<HTMLInputElement | any>(null);
   const statusRef = useRef<HTMLDivElement | any>(null);
@@ -39,28 +29,42 @@ const CreateCampaign = (match: object) => {
   const convValueRef = useRef<HTMLDivElement | any>(null);
   const costRef = useRef<HTMLDivElement | any>(null);
 
-  const [type, setType] = React.useState('');
-  const [postedStatus, setPostedStatus] = React.useState('');
+  const [inputs, setInputs] = useState({
+    title: '',
+    status: '',
+    date: '',
+    budget: '',
+    roas: '',
+    convValue: '',
+    cost: '',
+  });
+  const [type, setType] = useState('');
+  const [postedStatus, setPostedStatus] = useState('');
+
+  // const { title, status, date, budget, roas, convValue, cost } = inputs;
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { value, name } = event.target;
-    console.log(value);
+    console.log('value', value);
+
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
+
   const handleCampaignType = (event: any) => {
     setType(event.target.value);
   };
+
   const handleCampaignStatus = (event: any) => {
     setPostedStatus(event.target.value);
   };
 
   const ariaLabel = { 'aria-label': 'description' };
-  const navigate = useNavigate();
+
   return (
     <Layout>
       {/* <CampaignForm type="만들기" campaignDataById={location.state} /> */}
@@ -72,7 +76,6 @@ const CreateCampaign = (match: object) => {
               id="standard-multiline-flexible"
               label="제목"
               multiline
-              // value={title}
               ref={titleRef}
               onChange={handleChange}
               variant="standard"
