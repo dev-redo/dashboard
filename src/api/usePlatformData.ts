@@ -1,35 +1,35 @@
-import { api } from "./api";
+import { api } from './api';
 import {
   PlatformItems,
   PlatformAdData,
   PlatformSumType,
-  AdPlatformData,
-} from "../types/platform";
-import { add, format } from "date-fns";
-import axios from "axios";
+  PlatformNameType,
+} from '../types/platform';
+import { add, format } from 'date-fns';
+import axios from 'axios';
 
 const platform: PlatformItems = [];
 
 const platformKeyNameList = [
-  "imp",
-  "cost",
-  "click",
-  "roas",
-  "convValue",
-  "ctr",
-  "cpc",
-  "cpa",
-  "cvr",
+  'imp',
+  'cost',
+  'click',
+  'roas',
+  'convValue',
+  'ctr',
+  'cpc',
+  'cpa',
+  'cvr',
 ] as (keyof PlatformAdData)[];
 
 const platformKeyList = [
-  "facebook",
-  "google",
-  "kakao",
-  "naver",
-] as (keyof AdPlatformData)[];
+  'facebook',
+  'google',
+  'kakao',
+  'naver',
+] as (keyof PlatformNameType)[];
 
-const platformNameList = ["페이스북", "구글", "카카오", "네이버"];
+const platformNameList = ['페이스북', '구글', '카카오', '네이버'];
 
 const createIntialCompanyData = () => ({
   facebook: 0,
@@ -63,12 +63,12 @@ export const fetchedPlatform = async () => {
 };
 
 export const getPlatformData = async (date: Date, day: number) => {
-  const startDate = format(date, "yyyy-MM-dd");
-  const endDate = format(add(date, { days: day }), "yyyy-MM-dd");
+  const startDate = format(date, 'yyyy-MM-dd');
+  const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
   try {
     const response = await axios.get(
-      `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`
+      `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
     );
 
     const initialCompanyAdData = platformKeyNameList.reduce(
@@ -76,14 +76,14 @@ export const getPlatformData = async (date: Date, day: number) => {
         companyAdData[name] = createIntialCompanyData();
         return companyAdData;
       },
-      {} as PlatformAdData
+      {} as PlatformAdData,
     );
 
     //합산 데이터로 넣기
     let platformData = response.data.reduce((acc: any, curr: any) => {
       const { channel } = curr;
 
-      platformKeyNameList.forEach((name) => {
+      platformKeyNameList.forEach(name => {
         const adDataValue = curr[name];
         acc[name][channel] += adDataValue;
       });
@@ -93,10 +93,12 @@ export const getPlatformData = async (date: Date, day: number) => {
 
     //평균값으로 재할당
     for (let name in platformData) {
-      if (name === "roas" || name === "ctr" || name === "cvr") {
+      if (name === 'roas' || name === 'ctr' || name === 'cvr') {
         for (let channel in platformData[name]) {
           const avgValue =
-            Math.round((platformData[name][channel] / day + 1) * 100) / 100;
+            Math.round(
+              (platformData[name][channel] / day + 1) * 100,
+            ) / 100;
           platformData[name][channel] = avgValue;
         }
       }
@@ -105,7 +107,7 @@ export const getPlatformData = async (date: Date, day: number) => {
     //합산 데이터
     let platformSumData: object[] = [];
 
-    Object.keys(platformData).forEach((value) => {
+    Object.keys(platformData).forEach(value => {
       let sum = 0;
       let sumObj: PlatformSumType = { name: value, sum: 0 };
       for (let name in platformData[value]) {
@@ -122,13 +124,16 @@ export const getPlatformData = async (date: Date, day: number) => {
 };
 
 //테이블
-export const getPlatformTableData = async (date: Date, day: number) => {
-  const startDate = format(date, "yyyy-MM-dd");
-  const endDate = format(add(date, { days: day }), "yyyy-MM-dd");
+export const getPlatformTableData = async (
+  date: Date,
+  day: number,
+) => {
+  const startDate = format(date, 'yyyy-MM-dd');
+  const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
   try {
     const response = await axios.get(
-      `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`
+      `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
     );
 
     const initialAdPlatformData = platformKeyList.reduce(
@@ -136,13 +141,13 @@ export const getPlatformTableData = async (date: Date, day: number) => {
         companyAdData[name] = createIntialAdData();
         return companyAdData;
       },
-      {} as AdPlatformData
+      {} as PlatformNameType,
     );
 
     let adDataSum = response.data.reduce((acc: any, curr: any) => {
       const { channel } = curr;
 
-      platformKeyNameList.forEach((name) => {
+      platformKeyNameList.forEach(name => {
         const adDataValue = curr[name];
         acc[channel][name] += adDataValue;
       });
@@ -150,10 +155,15 @@ export const getPlatformTableData = async (date: Date, day: number) => {
       return acc;
     }, initialAdPlatformData);
 
+    //평균값 계산
     for (let channel in adDataSum) {
-      //console.log(adDataSum[channel]);
-
       for (let name in adDataSum[channel]) {
+        if (name === 'roas' || name === 'ctr' || name === 'cvr') {
+          const avgValue =
+            Math.round((adDataSum[channel][name] / day + 1) * 100) /
+            100;
+          adDataSum[channel][name] = avgValue;
+        }
       }
     }
 

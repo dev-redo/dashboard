@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Box,
   styled,
@@ -8,40 +8,37 @@ import {
   TableHead,
   TableRow,
   TableBody,
-} from "@mui/material";
-import StackedBarChart from "../charts/PlatformChart";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { dateState, filteredPlatformDate } from "../../store/platform";
-import { dataParamType } from "../../types/platform";
+} from '@mui/material';
+import StackedBarChart from '../charts/PlatformChart';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  dateState,
+  filteredPlatformDate,
+} from '../../store/platform';
+import { dataParamType } from '../../types/platform';
 import {
   getPlatformData,
   getPlatformTableData,
-} from "../../api/usePlatformData";
+} from '../../api/usePlatformData';
 
 const PlatformReports = () => {
-  //const date: dataParamType = { date: new Date("2022-02-11"), day: 6 };
-
-  //const [dateValue, setDateValue] = useRecoilState(dateState);
-
   useEffect(() => {
-    //setDateValue(date);
-    //console.log(platformDate);
-    getPlatformData(new Date("2022-02-11"), 6).then((result) =>
-      console.log("차트", result)
+    getPlatformData(new Date('2022-02-11'), 6).then(result =>
+      console.log('차트', result),
     );
-    getPlatformTableData(new Date("2022-02-11"), 6).then((result) =>
-      console.log("테이블", result)
+    getPlatformTableData(new Date('2022-02-11'), 6).then(result =>
+      console.log('테이블', result),
     );
   }, []);
 
   return (
     <StyledItem>
       <StackedBarChart />
-      <TableContainer sx={{ oveflow: "scroll", mt: 2 }}>
+      <TableContainer sx={{ oveflow: 'scroll', mt: 2 }}>
         <Table
           stickyHeader
           aria-label="simple table"
-          sx={{ minWidth: "1200px" }}
+          sx={{ minWidth: '1200px' }}
         >
           <TableHead>
             <TableRow>
@@ -103,11 +100,11 @@ export default PlatformReports;
 const StyledItem = styled(Box)(({ theme }) => ({
   paddingBlock: 30,
   paddingInline: 35,
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down('md')]: {
     marginTop: 20,
     paddingInline: 16,
   },
-  background: "#fff",
+  background: '#fff',
   minHeight: 400,
   borderRadius: 5,
 }));
