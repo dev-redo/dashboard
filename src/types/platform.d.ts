@@ -59,7 +59,7 @@ type Ad = {
   cpa: number;
 };
 
-export interface AdPlatformData {
+export interface PlatformNameType {
   facebook: Ad;
   google: Ad;
   kakao: Ad;
