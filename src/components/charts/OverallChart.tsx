@@ -23,11 +23,13 @@ import {
 import { useRecoilState } from "recoil";
 import { dynamicChartData, isMonthData } from "../../store/charts";
 import { useOverallModel } from '../../api/models/useOverallModel';
-import {overallData} from "../../store/global";
 
-const DailyReportChart = () => {
+import { startData, endData, lastData, overallData } from "../../store/global";
+const OverallChart = () => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
+  const [start, setStart] = useRecoilState(startData);
+  const [end, setEnd] = useRecoilState(endData)
   const data = DailyReport.report;
   const [overall, setOverall] = useRecoilState(overallData)
   console.log(overall)
@@ -38,9 +40,10 @@ const DailyReportChart = () => {
   );
 
 
-  const formatXAxis = (tickItem: string) => {
-    return format(parseISO(tickItem), `MM월 dd일`);
-  };
+  // const formatXAxis = (tickItem: string) => {
+  //   return format(parseISO(tickItem), `MM월 dd일`);
+  // // };
+  // tickFormatter={formatXAxis}
 
   return (
     <ChartCard heading="이번주 광고 차트">
@@ -50,48 +53,51 @@ const DailyReportChart = () => {
         / 기간 /
       </button>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={overall}
-          style={{ fontWeight: "bold" }}
-          margin={{
-            top: 20,
-            right: 40,
-            left: 30,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid
-            vertical={false}
-            stroke="#d6d9da"
-            strokeDasharray="3 3"
-          />
-          <XAxis dataKey="date" tickLine={false} tickFormatter={formatXAxis} />
-          <YAxis
-            width={35}
-            axisLine={false}
-            tickLine={false}
-            domain={["auto", "auto"]}
-          />
-          <Tooltip cursor={false} contentStyle={TooltipContainerStyles} />
-          <Line
-            type="monotone"
-            dataKey={dynamic[0].firstData}
-            stroke="#EF5B5B"
-            name={dynamic[1].firstDataName}
-            unit={dynamic[1].firstDataUnit}
-          />
-          <Line
-            type="monotone"
-            dataKey={dynamic[0].secondData}
-            stroke="blue"
-            name={dynamic[1].secondDataName}
-            unit={dynamic[1].secondDataUnit}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+{
+  start !== undefined && end &&       <ResponsiveContainer width="100%" height={300}>
+  <LineChart
+    data={overall}
+    style={{ fontWeight: "bold" }}
+    margin={{
+      top: 20,
+      right: 40,
+      left: 30,
+      bottom: 5,
+    }}
+  >
+    <CartesianGrid
+      vertical={false}
+      stroke="#d6d9da"
+      strokeDasharray="3 3"
+    />
+    <XAxis dataKey="date" tickLine={false}  />
+    <YAxis
+      width={35}
+      axisLine={false}
+      tickLine={false}
+      domain={["auto", "auto"]}
+    />
+    <Tooltip cursor={false} contentStyle={TooltipContainerStyles} />
+    <Line
+      type="monotone"
+      dataKey={dynamic[0].firstData}
+      stroke="#EF5B5B"
+      name={dynamic[1].firstDataName}
+      unit={dynamic[1].firstDataUnit}
+    />
+    <Line
+      type="monotone"
+      dataKey={dynamic[0].secondData}
+      stroke="blue"
+      name={dynamic[1].secondDataName}
+      unit={dynamic[1].secondDataUnit}
+    />
+  </LineChart>
+</ResponsiveContainer>
+}
+
     </ChartCard>
   );
 };
 
-export default DailyReportChart;
+export default OverallChart;
