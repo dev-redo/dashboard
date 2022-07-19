@@ -41,9 +41,8 @@ export const usePlatformModel = () => {
     const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
     try {
-      const response = await apiRequest.get(
-        '/platform',
-        `date_gte=${startDate}&date_lte=${endDate}`,
+      const response = await axios.get(
+        `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
       const data = response.data;
 
@@ -89,9 +88,13 @@ export const usePlatformModel = () => {
     const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
     try {
-      const response = await apiRequest.get(
-        '/platform',
-        `date_gte=${startDate}&date_lte=${endDate}`,
+      // const response = await apiRequest.get(
+      //   '/platform',
+      //   `date_gte=${startDate}&date_lte=${endDate}`,
+      // );
+
+      const response = await axios.get(
+        `http://localhost:8000/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
       const data = response.data;
 

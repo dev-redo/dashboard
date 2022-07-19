@@ -65,9 +65,3 @@ export interface PlatformNameType {
   kakao: Ad;
   naver: Ad;
 }
-
-export interface PlatformDataTypes {
-  date: string {
-
-  }
-}
