@@ -1,7 +1,4 @@
-import {
-  PlatformItems,
-  PlatformSumType,
-} from './../../types/platform.d';
+import { PlatformItems } from './../../types/platform.d';
 import { useState } from 'react';
 import { apiRequest } from '../instance/instance';
 import { AxiosInstance, AxiosResponse } from 'axios';
@@ -14,6 +11,7 @@ import {
   initialChartFormat,
   initialTableFormat,
 } from '../utils/platformDataFormat';
+import { access } from 'fs';
 
 interface DataType {
   [x: string]: any;
@@ -46,7 +44,6 @@ export const usePlatformModel = () => {
       );
       const data = response.data;
       return data;
-      
     } catch (error) {}
   };
 
@@ -94,7 +91,23 @@ export const usePlatformModel = () => {
         },
       );
 
-      return channelTableData;
+      let tableArr: object[] = [];
+      channelTableData.map(channels => {
+        tableArr.push(channels.tableData);
+      });
+
+      const tableSumData = platformKeyNameList.map(name => {
+        const value = tableArr.reduce(
+          (acc: number, curr: object | any) => {
+            console.log(acc, curr);
+            return acc + curr[name];
+          },
+          0,
+        );
+        return { name: name, sum: value };
+      });
+
+      return { channelTableData, tableSumData };
     } catch (error) {}
   };
 
