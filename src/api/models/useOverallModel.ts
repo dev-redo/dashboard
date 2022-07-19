@@ -1,6 +1,7 @@
 import { dateFormatSetting } from './../utils/dateFormatSetting';
 import { useState } from 'react';
 import { apiRequest } from '../instance/instance';
+import axios from 'axios';
 
 import { OverallItems } from '../../types/overall';
 
@@ -11,6 +12,7 @@ export const useOverallModel = () => {
     const response = await apiRequest.get('/overall');
     const formattedData = dateFormatSetting(response);
     setReports(formattedData);
+    console.log('getReports: response ->', response);
   };
 
   const getWeeklyReport = async (
