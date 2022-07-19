@@ -19,16 +19,16 @@ import { dataParamType } from '../../types/platform';
 import { usePlatformModel } from '../../api/models/usePlatformModel';
 
 const PlatformReports = () => {
-  const { getPlatformChartData, getPlatformTableData } =
-    usePlatformModel();
-  useEffect(() => {
-    getPlatformChartData(new Date('2022-02-11'), 6).then(result =>
-      console.log('차트', result),
-    );
-    getPlatformTableData(new Date('2022-02-11'), 6).then(result =>
-      console.log('테이블', result),
-    );
-  }, []);
+  // const { getPlatformChartData, getPlatformTableData } =
+  //   usePlatformModel();
+  // useEffect(() => {
+  //   getPlatformChartData(new Date('2022-02-11'), 6).then(result =>
+  //     console.log('차트', result),
+  //   );
+  //   getPlatformTableData(new Date('2022-02-11'), 6).then(result =>
+  //     console.log('테이블', result),
+  //   );
+  // }, []);
 
   return (
     <StyledItem>

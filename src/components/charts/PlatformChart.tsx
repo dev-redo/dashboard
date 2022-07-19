@@ -24,21 +24,54 @@ import ChannelReport from "../../data/channel-report.json";
 import { renderLegend } from "./chartCustoms/Legend";
 import { useRecoilState } from "recoil";
 import { dynamicChartData, isMonthData } from "../../store/charts";
+// import {
+//   getPlatformData,
+//   getPlatformTableData,
+// } from "../../api/usePlatformData";
+import { startData, endData, lastData, firstData, platformData } from "../../store/global";
+import {  
+  usePlatformModel
+} from "../../api/models/usePlatformModel"
 
 const StackedBarChart = () => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
-  const lastDate = parseISO(ChannelReport[ChannelReport.length - 1].date);
-  const startDate = parseISO(ChannelReport[1].date);
-  const someDate = add(startDate, { days: isMonth });
+  // const lastDate = parseISO(ChannelReport[ChannelReport.length - 1].date);
+  // const startDate = parseISO(ChannelReport[1].date);
+
+  // const someDate = add(startDate, { days: isMonth });
+
+  const { platformReport,
+    getPlatformReport,
+    getPlatformChartData,
+    getPlatformTableData, } = usePlatformModel();
+  const [start, setStart] = useRecoilState(startData);
+  const [end, setEnd] = useRecoilState(endData)
+  const [last, setLast] = useRecoilState(lastData)
+  const [first, setFirst] = useRecoilState(firstData)
+  const [platform, setPlatform] = useRecoilState(platformData)
+  const d = eachDayOfInterval(
+    { start: parseISO(start), end: parseISO(end) }
+  )
+  console.log(d.length)
+
+  React.useEffect(() => {
+    //setDateValue(date);
+    //console.log(platformDate);
+    getPlatformChartData(parseISO(start), d.length).then((result) =>
+    setPlatform(result)
+    );
+  }, [start, end]);
 
   const result = eachDayOfInterval({
-    start: startDate,
-    end: someDate,
+    start: parseISO(start),
+    end: parseISO(end),
   });
+
+  console.log(platform)
 
   const dateRange = result.map((x) => format(x, "yyyy-MM-dd"));
   // console.log(dateRange)
-  const data = useGetValuesByChannel(dateRange);
+  const data = useGetValuesByChannel(platform);
 
   const toPercent = (decimal: number, fixed: number = 0) =>
     `${(decimal * 100).toFixed(fixed)}%`;

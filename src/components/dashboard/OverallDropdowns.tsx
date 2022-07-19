@@ -1,22 +1,41 @@
 import { styled, MenuItem, FormControl, InputLabel } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import React, { useState } from "react";
-import { dynamicChartData, isMonthData, dateData } from "../../store/charts";
+import React, { useEffect, useState } from "react";
+import { dynamicChartData, isMonthData } from "../../store/charts";
 import { f, ff, fff, ffff } from "../charts/chartCustoms/ChangeValueData";
 import { useRecoilState } from "recoil";
-import { useListedEachWeek } from "../../hooks/useListedEachWeek";
-import { parseISO } from "date-fns";
-import ChannelReport from "../../data/channel-report.json";
+import { useListedEachWeek } from "../../hooks/useListedWeeksAndMonth";
+import { parseISO, format, add, isSunday, nextSunday, nextSaturday, endOfMonth } from "date-fns";
+// import ChannelReport from "../../data/channel-report.json";
+// import DailyReport from "../../data/daily-report.json";
+// import {useOverallModel} from "../../api/models/useOverallModel"
+import { startData, endData, lastData, firstData } from "../../store/global";
+
 
 export const OverallDateDropdown = () => {
-  const [dateList, setDateList] = useRecoilState(dateData);
-  const endDate = parseISO(ChannelReport[ChannelReport.length - 1].date);
-  const startDate = parseISO(ChannelReport[1].date);
-  const listedDate = useListedEachWeek(startDate, endDate);
+  const [start, setStart] = useRecoilState(startData);
+  const [end, setEnd] = useRecoilState(endData)
+  const [last, setLast] = useRecoilState(lastData)
+  const [first, setFirst] = useRecoilState(firstData)
+  const [dateList, setDateList] = useState("");
+  const [currentDate, setCurrentDate] = useState("")
+  const lastDate = parseISO(last);
+  const startDate = parseISO(start);
+  const firstDate = parseISO(first);
+  const endDate = parseISO(end);
 
+  // console.log(date.startDate, date.endDate);
+  console.log(currentDate)
+  const {listedDate, listedMonth} = useListedEachWeek(firstDate, lastDate);
+  const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const handleChange = (event: SelectChangeEvent) => {
+  const regex = /[^0-9]/g;
     setDateList(event.target.value as string);
+    setStart(event.target.value.split('~')[0].replace(/ /g, '').replace(regex, "-").slice(0, -1))
+    setEnd(event.target.value.split('~')[1].replace(/ /g, '') === 'undefined' ? last : event.target.value.split('~')[1].replace(/ /g, '').replace(regex, "-").slice(0, -1))
+    console.log(event.target.value.split('~')[1].replace(/ /g, '') === 'undefined')
   };
+
   return (
     <>
       <FormControl variant="standard" sx={{ minWidth: 240, height: 60 }}>
@@ -28,7 +47,9 @@ export const OverallDateDropdown = () => {
           onChange={handleChange}
           label="Date"
         >
-          {listedDate}
+          
+          {isMonth === 30 ? listedMonth : listedDate}
+          
         </Select>
       </FormControl>
     </>
@@ -93,9 +114,27 @@ export const OverallMiddleDropdown = () => {
 export const OverallMonthDropdown = () => {
   const [date, setDate] = useState("");
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
+  const [start, setStart] = useRecoilState(startData);
+  const [end, setEnd] = useRecoilState(endData)
+  const [last, setLast] = useRecoilState(lastData)
+  const [first, setFirst] = useRecoilState(firstData)
   const handleChange = (event: SelectChangeEvent) => {
     setDate(event.target.value as string);
   };
+
+  const changeToWeek = () => {
+    setIsMonth(6)
+    setStart(start)
+    setEnd(format(add(parseISO(start), {days:6}), "yyyy-MM-dd"))
+  }
+
+  const changeToMonth = () => {
+    setIsMonth(30)
+    setStart(start)
+    setEnd(format(endOfMonth(parseISO(start)), "yyyy-MM-dd"))
+  }
+
+  
   return (
     <>
       <StyleFormControl size="small">
@@ -107,10 +146,10 @@ export const OverallMonthDropdown = () => {
           label="기간"
           onChange={handleChange}
         >
-          <MenuItem value={1} onClick={() => setIsMonth(6)}>
+          <MenuItem value={1} onClick={() => changeToWeek()}>
             <em>주간</em>
           </MenuItem>
-          <MenuItem value={2} onClick={() => setIsMonth(30)}>
+          <MenuItem value={2} onClick={() => changeToMonth()}>
             <em>월간</em>
           </MenuItem>
         </Select>

@@ -29,6 +29,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import { fetchedOverall } from '../../api/fetchData';
 import { useOverallModel } from '../../api/models/useOverallModel';
+import { useRecoilState } from "recoil";
+import { startData, endData, lastData, overallData } from "../../store/global";
+import { OverallItem } from './../../types/overall.d';
 
 // TODO: 삭제 예정
 const test1 = fetchedOverall();
@@ -82,23 +85,24 @@ const Header = ({
     </Box>
   );
 
-  // TODO: 삭제 예정
-  useEffect(() => {
-    const test2 = async () => {
-      const test3 = await fetchedOverall();
-      // console.log(test3);
-    };
-    test2();
-  }, []);
 
+  const [start, setStart] = useRecoilState(startData);
+  const [end, setEnd] = useRecoilState(endData)
+  const [last, setLast] = useRecoilState(lastData)
+  const [overall, setOverall] = useRecoilState(overallData)
   const { reports, getReports, getWeeklyReport } = useOverallModel();
+  // console.log('reports: ', reports);
+  // console.log('getReports: ', getReports);
+  // console.log('getWeeklyReport: ', getWeeklyReport);
+  React.useEffect(() => {
+    getWeeklyReport(start, end);
+    return () => { setOverall(reports)
+    }
+  }, [start, end]);
 
-  useEffect(() => {
-    getReports();
-    getWeeklyReport('2022-02-01', '2022-02-07');
-  }, []);
-  console.log('reports: ', reports);
-
+  React.useEffect(() => {
+    setOverall(reports)
+  }, [getWeeklyReport]);
   return (
     <Box
       component="nav"
@@ -106,7 +110,6 @@ const Header = ({
       aria-label="mailbox folders"
     >
       <AppBar open={open} sidebar={menuWidth}>
-        ㅁㅅ
         <StyledToolbar>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
