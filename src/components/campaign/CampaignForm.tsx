@@ -1,22 +1,28 @@
 import React from "react";
-import { Box, styled, Input, Button } from "@mui/material";
+import { Box, styled, Input, Button,TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import {useRecoilState} from 'recoil'
 // import { campaignRequestType } from "../../store/campaign";
 
 interface TypeProps {
   type: string;
+  campaignDataById:number;
 }
 
-const CampaignForm = ({ type }: TypeProps) => {
-  // const [isEdit, setIsEdit] = useRecoilState(campaignRequestType);
+const CampaignForm = ({ type,campaignDataById }: any) => {
+  console.log(campaignDataById);
+  const {id,adType,title,budget,status,startDate,endDate,report} = campaignDataById;
+  // const [title, setTitle] = React.useState(`${campaignDataById.title}`);
+  // const [status, setStatus] = React.useState(`${campaignDataById.status}`);
+  // const [date, setDate] = React.useState(`${campaignDataById.startDate.substr(0, 10)}`);
+  // const [budget, setBudget] = React.useState(`${campaignDataById.budget.toLocaleString()}`);
+  // const [roas, setRoas] = React.useState(`${campaignDataById.report.roas}`);
+  // const [convValue, setConvValue] = React.useState(`${campaignDataById.report.convValue.toLocaleString()}`);
+  // const [cost, setCost] = React.useState(`${campaignDataById.report.cost.toLocaleString()}`);
 
-  // useEffect(() => {
-  //   if(isEdit==="edit"){
-  //     setCampaignRequestType("수정하기")
-  //   }else setCampaignRequestType("만들기")
-  // })
-
+  const handleChange=()=>{
+    console.log('test');
+  }
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
   return (
@@ -25,17 +31,20 @@ const CampaignForm = ({ type }: TypeProps) => {
         <Title>광고 {`${type}`}</Title>
         <AddForm>
           <InputBox>
-            <Input
-              placeholder="타이틀"
-              inputProps={ariaLabel}
-              autoFocus={true}
+            <TextField
+              id="standard-multiline-flexible"
+              label="제목"
+              multiline
+              value={title}
+              onChange={handleChange}
+              variant="standard"
             />
-            <Input placeholder="상태" inputProps={ariaLabel} />
-            <Input placeholder="광고 생성일" inputProps={ariaLabel} />
-            <Input placeholder="일 희망 예산" inputProps={ariaLabel} />
-            <Input placeholder="광고 수익률" inputProps={ariaLabel} />
-            <Input placeholder="매출" inputProps={ariaLabel} />
-            <Input placeholder="광고 비용" inputProps={ariaLabel} />
+            <Input placeholder="상태" inputProps={ariaLabel} value={status}/>
+            <Input placeholder="광고 생성일" inputProps={ariaLabel} value={startDate}/>
+            <Input placeholder="일 희망 예산" inputProps={ariaLabel} value={budget} />
+            <Input placeholder="광고 수익률" inputProps={ariaLabel} value={report.roas}/>
+            <Input placeholder="매출" inputProps={ariaLabel} value={report.convValue}/>
+            <Input placeholder="광고 비용" inputProps={ariaLabel} value={report.cost}/>
           </InputBox>
         </AddForm>
         <ButtonBox>

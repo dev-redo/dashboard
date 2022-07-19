@@ -1,6 +1,6 @@
-const overall = require('./overall');
-const platform = require('./platform');
-const campaign = require('./campaign');
+const overall = require("./overall");
+const platform = require("./platform");
+const campaign = require("./campaign");
 
 const combinedRoutes = {
   overall: overall.overall.daily,
