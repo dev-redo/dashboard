@@ -92,9 +92,12 @@ const Header = ({
   }, []);
 
   const { reports, getReports, getWeeklyReport } = useOverallModel();
+
+  useEffect(() => {
+    getReports();
+    getWeeklyReport('2022-02-01', '2022-02-07');
+  }, []);
   console.log('reports: ', reports);
-  console.log('getReports: ', getReports);
-  console.log('getWeeklyReport: ', getWeeklyReport);
 
   return (
     <Box
@@ -103,6 +106,7 @@ const Header = ({
       aria-label="mailbox folders"
     >
       <AppBar open={open} sidebar={menuWidth}>
+        ㅁㅅ
         <StyledToolbar>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton

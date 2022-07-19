@@ -16,7 +16,6 @@ export class httpRequest {
   }
 
   patch<T>(id: number, data: T) {
-    // ? T
     return this.service.patch(`/${id}`, data);
   }
 }

@@ -2,12 +2,10 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
-    "airbnb",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:@typescript-eslint/recommended",
+    // "airbnb",
+    // "plugin:import/errors",
+    // "plugin:import/warnings",
     "prettier",
-    "prettier/@typescript-eslint",
     "react-app"
   ],
   "ignorePatterns": ["node_modules/"],
