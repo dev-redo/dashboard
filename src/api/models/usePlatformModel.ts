@@ -59,16 +59,19 @@ export const usePlatformModel = () => {
       );
       const data = response.data;
 
-      let tableData = data.reduce((acc: DataType, curr: DataType) => {
-        const { channel } = curr;
+      const tableData = data.reduce(
+        (acc: DataType, curr: DataType) => {
+          const { channel } = curr;
 
-        platformKeyNameList.forEach(name => {
-          const adDataValue = Math.round(curr[name]);
-          acc[channel][name] += adDataValue;
-        });
+          platformKeyNameList.forEach(name => {
+            const adDataValue = Math.round(curr[name]);
+            acc[channel][name] += adDataValue;
+          });
 
-        return acc;
-      }, initialTableFormat);
+          return acc;
+        },
+        initialTableFormat,
+      );
 
       for (let channel in tableData) {
         for (let name in tableData[channel]) {
@@ -88,10 +91,9 @@ export const usePlatformModel = () => {
         },
       );
 
-      let tableArr: object[] = [];
-      channelTableData.map(channels => {
-        tableArr.push(channels.tableData);
-      });
+      const tableArr = channelTableData.map(
+        channels => channels.tableData,
+      );
 
       const tableSumData = platformKeyNameList.map(name => {
         const value = tableArr.reduce(
