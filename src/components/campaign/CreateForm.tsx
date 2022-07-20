@@ -49,13 +49,13 @@ const CreateForm = () => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { value, name } = event.target;
-    console.log(value, name);
+    // console.log(value, name);
 
     setInputs({
       ...inputs,
       [name]: value,
     });
-    console.log(inputs);
+    // console.log(inputs);
   };
 
   const handleCampaignType = (event: any) => {
@@ -81,9 +81,9 @@ const CreateForm = () => {
     };
     setCampaignItem([...campaignItem, newCampaign]);
     // setInputs('') // 초기화
-    console.log('input.title : ', inputs.title);
-    console.log('newCampaign : ', newCampaign);
-    console.log('campaignItem : ', campaignItem);
+    // console.log('input.title : ', inputs.title);
+    // console.log('newCampaign : ', newCampaign);
+    // console.log('campaignItem : ', campaignItem);
   };
 
   return (
