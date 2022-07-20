@@ -108,6 +108,8 @@ export const usePlatformModel = () => {
         return { name: name, sum: value };
       });
 
+      console.log(tableSumData);
+
       return { channelTableData, tableSumData };
     } catch (error) {}
   };
