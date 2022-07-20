@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Toolbar,
@@ -8,7 +9,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  Link,
   styled,
   IconButton,
   Badge,
@@ -28,8 +28,8 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import { useOverallModel } from '../../api/models/useOverallModel';
-import { useRecoilState } from "recoil";
-import { startData, endData, overallData } from "../../store/global";
+import { useRecoilState } from 'recoil';
+import { startData, endData, overallData } from '../../store/global';
 
 interface HeaderProps {
   handleDrawerOpen: () => void;
@@ -55,7 +55,7 @@ const Header = ({
     <Box>
       <Divider />
       <List sx={{ padding: 0 }}>
-        <StyledLink href="/" color="inherit">
+        <StyledLink to="/">
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -65,7 +65,7 @@ const Header = ({
             </ListItemButton>
           </ListItem>
         </StyledLink>
-        <StyledLink href="/campaign-manage" color="inherit">
+        <StyledLink to="/campaign-manage">
           <ListItem disablePadding>
             <ListItemButton sx={{ pt: 2, pb: 2 }}>
               <ListItemIcon>
@@ -79,25 +79,25 @@ const Header = ({
     </Box>
   );
 
-
   const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData)
-  const [overall, setOverall] = useRecoilState(overallData)
+  const [end, setEnd] = useRecoilState(endData);
+  const [overall, setOverall] = useRecoilState(overallData);
   const { reports, getWeeklyReport } = useOverallModel();
 
-    React.useEffect(() => {
-    setStart('2022-02-01')
-    setEnd('2022-02-05')
-  }, [])
-  
+  React.useEffect(() => {
+    setStart('2022-02-01');
+    setEnd('2022-02-05');
+  }, []);
+
   React.useEffect(() => {
     getWeeklyReport(start, end);
-    return () => { setOverall(reports)
-    }
+    return () => {
+      setOverall(reports);
+    };
   }, [start, end]);
 
   React.useEffect(() => {
-    setOverall(reports)
+    setOverall(reports);
   }, [getWeeklyReport]);
   return (
     <Box
@@ -171,6 +171,7 @@ const StyledLink = styled(Link)({
   textDecoration: 'none',
   fontSize: 18,
   display: 'block',
+  color: 'inherit',
 });
 
 const StyledToolbar = styled(Toolbar)({
