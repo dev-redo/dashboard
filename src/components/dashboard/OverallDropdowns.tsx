@@ -74,6 +74,7 @@ export const MiddleLeftDropdowns = () => {
 
   const handleChange3 = (event: SelectChangeEvent) => {
     setType({type: event.target.value as string})
+    loadSpinner();
   }
 
   return (
