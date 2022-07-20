@@ -85,9 +85,9 @@ const PlatformReports = () => {
               <TableCell>광고수익률</TableCell>
               <TableCell>전환값</TableCell>
               <TableCell>클릭율</TableCell>
+              <TableCell>전환율</TableCell>
               <TableCell>클릭단가</TableCell>
               <TableCell>전환단가</TableCell>
-              <TableCell>전환율</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
