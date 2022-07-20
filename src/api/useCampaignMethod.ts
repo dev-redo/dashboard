@@ -29,10 +29,6 @@ export const useCampaignMethod = () => {
     updateCampaign(response);
   };
 
-  // const deleteCampaign = async () => {
-  //   apiRequest.delete()
-  // }
-
   return {
     campaigns,
     getCampaign,

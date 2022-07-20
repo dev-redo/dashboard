@@ -4,8 +4,8 @@ export interface CampaignItem {
   title: string;
   budget: number;
   status: string;
-  startDate: string;
-  endDate: string | null;
+  startDate?: string;
+  endDate?: string | null;
   report: {
     cost: number;
     convValue: number;
