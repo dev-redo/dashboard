@@ -14,20 +14,19 @@ import { useGetValuesByChannel } from "../../hooks/useGetValuesByChannel";
 import {
   parseISO,
   eachDayOfInterval,
-  format,
 } from "date-fns";
 import { renderLegend } from "./chartCustoms/Legend";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { startData, endData, platformData } from "../../store/global";
 import {  
   usePlatformModel
 } from "../../api/models/usePlatformModel";
 import {keys, colors} from "./chartCustoms/PlatformChartKeys";
 
-const StackedBarChart = () => {
+const PlatformChart = () => {
   const { getPlatformChartData } = usePlatformModel();
-  const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData)
+  const start = useRecoilValue(startData);
+  const end = useRecoilValue(endData);
   const [platform, setPlatform] = useRecoilState(platformData)
 
   const getEndDate = eachDayOfInterval(
@@ -147,4 +146,4 @@ const StackedBarChart = () => {
 
   );
 };
-export default StackedBarChart;
+export default PlatformChart;

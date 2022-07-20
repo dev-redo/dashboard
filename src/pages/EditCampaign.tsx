@@ -1,7 +1,6 @@
 import Layout from '../components/layout/Layout';
 import { useLocation } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
-import { apiRequest } from '../api/instance/instance';
 import {
   Box,
   styled,

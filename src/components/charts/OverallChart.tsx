@@ -10,13 +10,13 @@ import {
   Line,
 } from "recharts";
 import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { dynamicChartData } from "../../store/charts";
 import { overallData } from "../../store/global";
 
 const OverallChart = () => {
-  const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
-  const [overall, setOverall] = useRecoilState(overallData)
+  const dynamic = useRecoilValue(dynamicChartData);
+  const overall = useRecoilValue(overallData)
 
   return (
 

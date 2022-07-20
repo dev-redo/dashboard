@@ -1,4 +1,4 @@
-import { atom, selectorFamily } from 'recoil';
+import { atom } from 'recoil';
 import { OverallItems } from '../types/overall.d';
 import { PlatformItems } from '../types/platform.d';
 

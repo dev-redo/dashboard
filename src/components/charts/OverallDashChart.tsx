@@ -9,18 +9,14 @@ import {
   Line
 } from "recharts";
 import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { dynamicChartData } from "../../store/charts";
 import { overallData } from "../../store/global";
 
 const OverallDashChart = () => {
-  const [overall, setOverall] = useRecoilState(overallData)
-  const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
-  // const data = DailyReport.report;
-  // const list: object[] = [];
-  // const shortWeekTemp = data.daily.map((v: any, index: number) =>
-  //   index >= isMonth ? "" : list.push(v)
-  // );
+  const dynamic = useRecoilValue(dynamicChartData);
+  const overall = useRecoilValue(overallData)
+
   return (
 
       <ResponsiveContainer width="100%" height={300}>

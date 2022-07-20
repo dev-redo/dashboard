@@ -1,14 +1,4 @@
-import { atom, selectorFamily } from 'recoil';
-
-export const dateData = atom({
-  key: 'dateData',
-  default: "",
-});
-
-export const isWeekData = atom({
-  key: 'isWeekData',
-  default: 6,
-});
+import { atom } from 'recoil';
 
 export const isMonthData = atom({
   key: 'isMonthData',
@@ -29,19 +19,3 @@ export const dynamicChartData = atom({
   }
 ],
 });
-
-// default: [{
-//   cost: 'cost',
-//   convValue: 'convValue',
-// }, {
-//   roas: 'roas',
-//   click: 'click'
-// },
-// {
-//   imp: 'imp',
-//   conv: 'conv'
-// }
-// ],
-
-// platform에는 conv값이 없음
-

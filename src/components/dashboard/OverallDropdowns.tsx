@@ -2,18 +2,19 @@ import { styled, MenuItem, FormControl, InputLabel } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import { dynamicChartData, isMonthData } from "../../store/charts";
-import { f, ff, fff, ffff } from "../charts/chartCustoms/OverallChangeValueData";
-import { useRecoilState } from "recoil";
+import { roasCpc, clickCpc, convCvr, clickCtr } from "../charts/chartCustoms/OverallChangeValueData";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useListedEachWeek } from "../../hooks/useListedWeeksAndMonth";
 import { parseISO, format, add, endOfMonth, startOfMonth } from "date-fns";
 import { startData, endData, lastData, firstData, typesData } from "../../store/global";
 import { useSpinner } from "../../hooks/useSpinner";
 
 export const TopDateDropdown = () => {
+  const first = useRecoilValue(firstData)
+  const last = useRecoilValue(lastData)
   const [start, setStart] = useRecoilState(startData);
   const [end, setEnd] = useRecoilState(endData)
-  const [last, setLast] = useRecoilState(lastData)
-  const [first, setFirst] = useRecoilState(firstData)
+
   const [dateList, setDateList] = useState("");
   const lastDate = parseISO(last);
   const firstDate = parseISO(first);
@@ -89,12 +90,12 @@ export const MiddleLeftDropdowns = () => {
           label="select"
           onChange={handleChange}
         >
-          <MenuItem value={10} onClick={() => setDynamics(f)}>
-            <em>ROAS</em>
+          <MenuItem value={10} onClick={() => setDynamics(roasCpc)}>
+            <em>수익률</em>
           </MenuItem>
 
-          <MenuItem value={20} onClick={() => setDynamics(ff)}>
-            CLICK
+          <MenuItem value={20} onClick={() => setDynamics(clickCpc)}>
+            클릭단가
           </MenuItem>
         </Select>
       </StyleFormControl>
@@ -107,11 +108,11 @@ export const MiddleLeftDropdowns = () => {
           label="select"
           onChange={handleChange2}
         >
-          <MenuItem value={10} onClick={() => setDynamics(fff)}>
-            <em>ROAS</em>
+          <MenuItem value={10} onClick={() => setDynamics(convCvr)}>
+            <em>전환율</em>
           </MenuItem>
-          <MenuItem value={20} onClick={() => setDynamics(ffff)}>
-            <em>클릭 수</em>
+          <MenuItem value={20} onClick={() => setDynamics(clickCtr)}>
+            <em>클릭률</em>
           </MenuItem>
         </Select>
       </StyleFormControl>

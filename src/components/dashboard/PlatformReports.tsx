@@ -1,4 +1,4 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   styled,
@@ -9,40 +9,23 @@ import {
   TableRow,
   TableBody,
 } from '@mui/material';
-import { dynamicChartData, isMonthData } from '../../store/charts';
 import StackedBarChart from '../charts/PlatformChart';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { dataParamType } from '../../types/platform';
+import { useRecoilValue } from 'recoil';
 import {
   startData,
   endData,
-  lastData,
-  firstData,
-  platformData,
 } from '../../store/global';
 import {
   parseISO,
-  differenceInWeeks,
-  getWeekOfMonth,
-  add,
   eachDayOfInterval,
-  format,
 } from 'date-fns';
 import { usePlatformModel } from '../../api/models/usePlatformModel';
 
 const PlatformReports = () => {
-  const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData);
-  const [last, setLast] = useRecoilState(lastData);
-  const [first, setFirst] = useRecoilState(firstData);
-  const [dateList, setDateList] = useState('');
-  const [currentDate, setCurrentDate] = useState('');
-  const lastDate = parseISO(last);
-  const startDate = parseISO(start);
-  const firstDate = parseISO(first);
-  const endDate = parseISO(end);
-  const [isMonth, setIsMonth] = useRecoilState(isMonthData);
-  const d = eachDayOfInterval({
+  const start = useRecoilValue(startData);
+  const end = useRecoilValue(endData);
+
+  const getEndDate = eachDayOfInterval({
     start: parseISO(start),
     end: parseISO(end),
   });
@@ -59,7 +42,7 @@ const PlatformReports = () => {
     async function fetchAndSetTableData() {
       const response = (await getPlatformTableData(
         parseISO(start),
-        d.length,
+        getEndDate.length,
       ).then(result => result)) as any;
 
       setTableAdData(response);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Toolbar,
@@ -27,15 +27,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import { fetchedOverall } from '../../api/fetchData';
 import { useOverallModel } from '../../api/models/useOverallModel';
 import { useRecoilState } from "recoil";
-import { startData, endData, lastData, overallData } from "../../store/global";
-import { OverallItem } from './../../types/overall.d';
-
-// TODO: 삭제 예정
-const test1 = fetchedOverall();
-// console.log('Header - test : ', test1);
+import { startData, endData, overallData } from "../../store/global";
 
 interface HeaderProps {
   handleDrawerOpen: () => void;
@@ -88,13 +82,9 @@ const Header = ({
 
   const [start, setStart] = useRecoilState(startData);
   const [end, setEnd] = useRecoilState(endData)
-  const [last, setLast] = useRecoilState(lastData)
   const [overall, setOverall] = useRecoilState(overallData)
-  const { reports, getReports, getWeeklyReport } = useOverallModel();
-  // console.log('reports: ', reports);
-  // console.log('getReports: ', getReports);
-  // console.log('getWeeklyReport: ', getWeeklyReport);
-  
+  const { reports, getWeeklyReport } = useOverallModel();
+
     React.useEffect(() => {
     setStart('2022-02-01')
     setEnd('2022-02-05')

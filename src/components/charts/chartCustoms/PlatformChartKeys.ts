@@ -10,4 +10,4 @@ export const keys = [
       "convValue.kakao",
     ],
   ];
-export const colors = ["#82ca9d", "#8884d8", "#ec62e1", "#f8e749"];
+export const colors = ["#D02421", "#92D050", "#EDD600", "#375496"];
