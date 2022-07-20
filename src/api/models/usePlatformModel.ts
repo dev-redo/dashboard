@@ -63,7 +63,7 @@ export const usePlatformModel = () => {
         const { channel } = curr;
 
         platformKeyNameList.forEach(name => {
-          const adDataValue = curr[name];
+          const adDataValue = Math.round(curr[name]);
           acc[channel][name] += adDataValue;
         });
 
@@ -102,8 +102,6 @@ export const usePlatformModel = () => {
         );
         return { name: name, sum: value };
       });
-
-      console.log(tableSumData);
 
       return { channelTableData, tableSumData };
     } catch (error) {}
