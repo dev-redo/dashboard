@@ -9,52 +9,19 @@ import {
   Legend,
   Line,
 } from "recharts";
-import ChartCard from "./chartCustoms/ChartCard";
 import { TooltipContainerStyles } from "../../styles/constants/tooltipContainerStyles";
-import DailyReport from "../../data/daily-report.json";
-import {
-  parseISO,
-  differenceInWeeks,
-  getWeekOfMonth,
-  add,
-  eachWeekOfInterval,
-  format,
-} from "date-fns";
 import { useRecoilState } from "recoil";
-import { dynamicChartData, isMonthData } from "../../store/charts";
-import { useOverallModel } from '../../api/models/useOverallModel';
+import { dynamicChartData } from "../../store/charts";
+import { overallData } from "../../store/global";
 
-import { startData, endData, lastData, overallData } from "../../store/global";
 const OverallChart = () => {
-  const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [dynamic, setDynamic] = useRecoilState(dynamicChartData);
-  const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData)
-  const data = DailyReport.report;
   const [overall, setOverall] = useRecoilState(overallData)
-  console.log(overall)
-  const { reports, getReports, getWeeklyReport } = useOverallModel();
-  const list: object[] = [];
-  const shortWeekTemp = data.daily.map((v: any, index: number) =>
-    index >= isMonth ? "" : list.push(v)
-  );
-
-
-  // const formatXAxis = (tickItem: string) => {
-  //   return format(parseISO(tickItem), `MM월 dd일`);
-  // // };
-  // tickFormatter={formatXAxis}
 
   return (
-    <ChartCard heading="이번주 광고 차트">
-      {/* 최적 경우의 수  */}
 
-      <button type="button" onClick={() => setIsMonth(30)}>
-        / 기간 /
-      </button>
 
-{
-  start !== undefined && end &&       <ResponsiveContainer width="100%" height={300}>
+ <ResponsiveContainer width="100%" height={300}>
   <LineChart
     data={overall}
     style={{ fontWeight: "bold" }}
@@ -70,7 +37,7 @@ const OverallChart = () => {
       stroke="#d6d9da"
       strokeDasharray="3 3"
     />
-    <XAxis dataKey="date" tickLine={false}  />
+    <XAxis dataKey="date" tickLine={false} tickFormatter={(tickItem) => tickItem ? tickItem?.split('-')[1] + '월 ' + tickItem?.split('-')[2] + '일' : ""} />
     <YAxis
       width={35}
       axisLine={false}
@@ -78,6 +45,7 @@ const OverallChart = () => {
       domain={["auto", "auto"]}
     />
     <Tooltip cursor={false} contentStyle={TooltipContainerStyles} />
+    <Legend verticalAlign="top" height={36}/>
     <Line
       type="monotone"
       dataKey={dynamic[0].firstData}
@@ -94,9 +62,7 @@ const OverallChart = () => {
     />
   </LineChart>
 </ResponsiveContainer>
-}
 
-    </ChartCard>
   );
 };
 

@@ -1,6 +1,7 @@
 import { atom, selectorFamily } from 'recoil';
 import { OverallItems } from '../types/overall.d';
 import { PlatformItems } from '../types/platform.d';
+
 export const firstData = atom({
     key: 'firstData',
     default: '2022-02-01',    
@@ -31,4 +32,9 @@ export const overallData = atom<OverallItems[]>({
     key: 'platformData',
     default: [],
   });
+
+  export const typesData = atom({
+    key: 'typesData',
+    default: {type:"Line"},  
+  })
 

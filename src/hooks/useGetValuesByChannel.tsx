@@ -1,16 +1,7 @@
-import ChannelReport from "../data/channel-report.json";
-import { PlatformItem, PlatformItems } from '../types/platform'
+import { PlatformItem } from '../types/platform'
 type ChannelType = "google" | "naver" | "facebook" | "kakao";
 
 export const useGetValuesByChannel = (platform:any) => {
-
-  // const receivedDateReduce = dateRange.reduce((acc: object[], current:string) => {
-  //   if (current) {const values = ChannelReport.filter(value => value.date === current);
-  //   acc.push(...values);}
-  //   return acc;
-  // }, []);
-
-  // console.log(receivedDateReduce)
 
   const imp = {name: '노출수', imp: { google: 0, naver: 0, facebook: 0, kakao: 0 }}
   const cost = {name: '광고단가', cost : { google: 0, naver: 0, facebook: 0, kakao: 0 }}
@@ -37,6 +28,6 @@ export const useGetValuesByChannel = (platform:any) => {
  pushDataInArray('kakao')
 
   const data = [cost, imp, click, roas, convValue]
-console.log(data)
+
   return data;
 }
