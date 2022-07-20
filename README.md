@@ -14,7 +14,7 @@
 | 김민주 | 팀원 </br> Frontend | - 모달 및 카드 즐겨찾기 버튼 활성화 </br> - CSS 수정 </br> - 로고 클릭시 홈으로 이동 및 전체 데이터 출력 </br> - Refactoring: 주석, 죽은 코드 제거 및 함수,변수 naming 최종 정리 |
 | 이상지 | 팀장 </br> Frontend |             - 기획, UI/UX 디자인 및 레이아웃 </br> - 프로젝트 초기세팅 </br> - 헤더 구현 </br> - 드롭다운 연관 검색어 기능 구현 </br> - 스크럼 진행 및 개발일정 관리             |
 | 이혜림 | 팀원 </br> Frontend |                                  - ReChart.js 로 차트들 제작 </br> - Recoil로 날짜 데이터를 전역으로 관리 / 동기화 </br> - 차트 테마를 바뀌게 하는 기능! </br>                               |
-| 홍승연 | 팀원 </br> Frontend |                                               - 영화 카드, 카드 목록 구현 </br> - 즐겨찾기 구현 </br> - 전역 상태 관리 Refactoring                                               |
+| 홍승연 | 팀원 </br> Frontend |                                               - 수빈님과 함께 table data api 작업 </br> -  table chart 렌더링
 
 </br>
 </br>
@@ -84,3 +84,15 @@
   - 주말 기준으로 일주일씩 끊고 start날짜가 주말이 아닐 경우에는 앞을 끊어서 보여줍니다.
 - 차트 테마를 바뀌게 하는 기능! 
   - 드롭다운을 누르면 차트의 테마를 바꿀수 있음!
+
+</br>
+
+### 승연
+
+- 수빈님과 함께 table data api 작업
+
+![1](https://user-images.githubusercontent.com/69149030/179942515-b3498c25-004f-4744-9b30-e952f455bc82.png)
+
+- table chart 렌더링
+
+![1](https://user-images.githubusercontent.com/69149030/179942780-c89c99a2-f395-4ac8-add8-b08f78496abc.png)
