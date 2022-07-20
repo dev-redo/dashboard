@@ -4,32 +4,24 @@ import {
   Card,
   Typography,
   CardContent,
-  FormControl,
-  InputLabel,
   Grid,
-  MenuItem
 } from "@mui/material";
 import OverallChart from "../charts/OverallChart";
-import RainFallAreaChart from "../charts/RainFallAreaChart";
+import OverallDashChart from "../charts/OverallDashChart";
 import {
-  OverallDateDropdown,
-  OverallMiddleDropdown,
-  OverallMonthDropdown,
+  TopDateDropdown,
+  MiddleLeftDropdowns,
+  WeekToMonthDropdown,
 } from "./OverallDropdowns";
-import {useState } from 'react';
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { typesData } from "../../store/global";
+import { useRecoilState } from "recoil";
 
 const OverallReports = () => {
-  const [type, setType] = useState({type:"Line"})
-console.log(type)
- const handleChange = (event: SelectChangeEvent) => {
-    setType({type: event.target.value as string})
-  }
-
+  const [type, setType] = useRecoilState(typesData)
   const fetchChart = () => {
     switch(type.type){
       case "Line": return <OverallChart/>
-      case "Area": return <RainFallAreaChart />
+      case "Dash": return <OverallDashChart />
       default: return <OverallChart/>
     }
   }
@@ -44,10 +36,10 @@ console.log(type)
         }}
       >
         <Typography variant="h6">통합 광고 현황</Typography>
-        <OverallDateDropdown />
+        <TopDateDropdown />
       </Box>
       <StyledItem maxWidth="xl">
-        {/* ad infomation */}
+
         <Grid container spacing={2} sx={{ mb: 5 }}>
           {/* 임의로 반복문 돌려줌 */}
           {["ROAS", "광고비", "노출 수", "클릭 수", "전환 수", "매출"].map(
@@ -92,33 +84,11 @@ console.log(type)
           }}
         >
           <Box>
-            <OverallMiddleDropdown />
-            <StyleFormControl size="small">
-        <InputLabel id="demo-select-small2">select</InputLabel>
-            <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={type.type}
-          onChange={handleChange}
-          label="Date"
-        >
-          <MenuItem value={"Line"}>
-            <em>Line</em>
-          </MenuItem>
-          <MenuItem value={"Area"}>
-            <em>Area</em>
-          </MenuItem>
-        </Select>
-        </StyleFormControl>
+            <MiddleLeftDropdowns />
           </Box>
-          
-          <OverallMonthDropdown />
-          
-
+          <WeekToMonthDropdown />
         </Box>
-        {/* 차트 */}
-        <OverallChart />
-        {/* {fetchChart()} */}
+        {fetchChart()}
       </StyledItem>
     </>
   );
@@ -144,9 +114,3 @@ const StyledCard = styled(Card)({
   border: "1px solid #dedede",
   boxShadow: "none",
 });
-const StyleFormControl = styled(FormControl)(({ theme }) => ({
-  width: 120,
-  [theme.breakpoints.down("md")]: {
-    width: 100,
-  },
-}));

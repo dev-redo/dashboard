@@ -9,14 +9,14 @@ import {
   Legend,
   Line
 } from "recharts";
-import ChartCard from '../chartCustoms/ChartCard';
+
 import { TEMPERATURE } from '../../../data/melb-monthly-temperature';
-import { getMonthNameByOrder } from '../../../monthMapping';
+import { getMonthNameByOrder } from '../../../data/monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 
 const TemperatureLineChart: React.FC = () => {
   return (
-    <ChartCard heading="Melbourne 2019 monthly temperature">
+   
       <ResponsiveContainer width="100%" height={200}>
         <LineChart data={TEMPERATURE["2019"]} style={{ fontWeight: 'bold' }}>
           <CartesianGrid
@@ -49,7 +49,7 @@ const TemperatureLineChart: React.FC = () => {
           />
         </LineChart>
       </ResponsiveContainer>
-    </ChartCard>
+  
   );
 };
 

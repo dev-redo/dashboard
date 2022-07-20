@@ -1,93 +1,41 @@
-import {
-  styled,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import React, { useEffect, useState } from 'react';
-import { dynamicChartData, isMonthData } from '../../store/charts';
-import {
-  f,
-  ff,
-  fff,
-  ffff,
-} from '../charts/chartCustoms/ChangeValueData';
-import { useRecoilState } from 'recoil';
-import { useListedEachWeek } from '../../hooks/useListedWeeksAndMonth';
-import {
-  parseISO,
-  format,
-  add,
-  isSunday,
-  nextSunday,
-  nextSaturday,
-  endOfMonth,
-} from 'date-fns';
-// import ChannelReport from "../../data/channel-report.json";
-// import DailyReport from "../../data/daily-report.json";
-// import {useOverallModel} from "../../api/models/useOverallModel"
-import {
-  startData,
-  endData,
-  lastData,
-  firstData,
-} from '../../store/global';
+import { styled, MenuItem, FormControl, InputLabel } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useState } from "react";
+import { dynamicChartData, isMonthData } from "../../store/charts";
+import { f, ff, fff, ffff } from "../charts/chartCustoms/OverallChangeValueData";
+import { useRecoilState } from "recoil";
+import { useListedEachWeek } from "../../hooks/useListedWeeksAndMonth";
+import { parseISO, format, add, endOfMonth, startOfMonth } from "date-fns";
+import { startData, endData, lastData, firstData, typesData } from "../../store/global";
 
-export const OverallDateDropdown = () => {
+
+export const TopDateDropdown = () => {
   const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData);
-  const [last, setLast] = useRecoilState(lastData);
-  const [first, setFirst] = useRecoilState(firstData);
-  const [dateList, setDateList] = useState('');
-  const [currentDate, setCurrentDate] = useState('');
+  const [end, setEnd] = useRecoilState(endData)
+  const [last, setLast] = useRecoilState(lastData)
+  const [first, setFirst] = useRecoilState(firstData)
+  const [dateList, setDateList] = useState("");
   const lastDate = parseISO(last);
-  const startDate = parseISO(start);
   const firstDate = parseISO(first);
-  const endDate = parseISO(end);
 
-  // console.log(date.startDate, date.endDate);
-  console.log(currentDate);
-  const { listedDate, listedMonth } = useListedEachWeek(
-    firstDate,
-    lastDate,
-  );
+  const {listedDate, listedMonth} = useListedEachWeek(firstDate, lastDate);
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
+
   const handleChange = (event: SelectChangeEvent) => {
     const regex = /[^0-9]/g;
+
+    const startDateToString = event.target.value.split('~')[0].replace(/ /g, '').replace(regex, "-").slice(0, -1);
+    const endDateToString = event.target.value.split('~')[1].replace(/ /g, '') === 'undefined' ? last : event.target.value.split('~')[1].replace(/ /g, '').replace(regex, "-").slice(0, -1);
+
     setDateList(event.target.value as string);
-    setStart(
-      event.target.value
-        .split('~')[0]
-        .replace(/ /g, '')
-        .replace(regex, '-')
-        .slice(0, -1),
-    );
-    setEnd(
-      event.target.value.split('~')[1].replace(/ /g, '') ===
-        'undefined'
-        ? last
-        : event.target.value
-            .split('~')[1]
-            .replace(/ /g, '')
-            .replace(regex, '-')
-            .slice(0, -1),
-    );
-    console.log(
-      event.target.value.split('~')[1].replace(/ /g, '') ===
-        'undefined',
-    );
+    setStart(startDateToString)
+    setEnd(endDateToString)
   };
 
   return (
     <>
-      <FormControl
-        variant="standard"
-        sx={{ minWidth: 240, height: 60 }}
-      >
-        <InputLabel id="demo-simple-select-standard-label">
-          기간
-        </InputLabel>
+      <FormControl variant="standard" sx={{ minWidth: 240, height: 60 }}>
+        <InputLabel id="demo-simple-select-standard-label">기간</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -95,17 +43,20 @@ export const OverallDateDropdown = () => {
           onChange={handleChange}
           label="Date"
         >
+          
           {isMonth === 30 ? listedMonth : listedDate}
+          
         </Select>
       </FormControl>
     </>
   );
 };
 
-export const OverallMiddleDropdown = () => {
-  const [select1, setSelect1] = useState('');
-  const [select2, setSelect2] = useState('');
+export const MiddleLeftDropdowns = () => {
+  const [select1, setSelect1] = useState("");
+  const [select2, setSelect2] = useState("");
   const [dynamics, setDynamics] = useRecoilState(dynamicChartData);
+  const [type, setType] = useRecoilState(typesData)
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelect1(event.target.value as string);
@@ -115,11 +66,15 @@ export const OverallMiddleDropdown = () => {
     setSelect2(event.target.value as string);
   };
 
+  const handleChange3 = (event: SelectChangeEvent) => {
+    setType({type: event.target.value as string})
+  }
+
   return (
     <>
       <StyleFormControl sx={{ mr: 1 }} size="small">
         <InputLabel id="demo-select-small1">select</InputLabel>
-        <InputLabel id="demo-select-small1">select</InputLabel>
+
         <Select
           labelId="demo-select-small1"
           id="demo-select-small1"
@@ -153,33 +108,50 @@ export const OverallMiddleDropdown = () => {
           </MenuItem>
         </Select>
       </StyleFormControl>
+      <StyleFormControl size="small">
+        <InputLabel id="demo-select-small2"></InputLabel>
+            <Select
+         labelId="demo-select-small2"
+         id="demo-select-small2"
+          value={type.type}
+          onChange={handleChange3}
+          // label="select"
+        >
+          <MenuItem value={"Line"}>
+            <em>Line</em>
+          </MenuItem>
+          <MenuItem value={"Dash"}>
+            <em>Dash</em>
+          </MenuItem>
+        </Select>
+        </StyleFormControl>
     </>
   );
 };
 
-export const OverallMonthDropdown = () => {
-  const [date, setDate] = useState('');
+export const WeekToMonthDropdown = () => {
+  const [date, setDate] = useState("");
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [start, setStart] = useRecoilState(startData);
-  const [end, setEnd] = useRecoilState(endData);
-  const [last, setLast] = useRecoilState(lastData);
-  const [first, setFirst] = useRecoilState(firstData);
+  const [end, setEnd] = useRecoilState(endData)
+
   const handleChange = (event: SelectChangeEvent) => {
     setDate(event.target.value as string);
   };
 
   const changeToWeek = () => {
-    setIsMonth(6);
-    setStart(start);
-    setEnd(format(add(parseISO(start), { days: 6 }), 'yyyy-MM-dd'));
-  };
+    setIsMonth(6)
+    setStart(start)
+    setEnd(format(add(parseISO(start), {days:6}), "yyyy-MM-dd"))
+  }
 
   const changeToMonth = () => {
-    setIsMonth(30);
-    setStart(start);
-    setEnd(format(endOfMonth(parseISO(start)), 'yyyy-MM-dd'));
-  };
+    setIsMonth(30)
+    setStart(format(startOfMonth(parseISO(start)),"yyyy-MM-dd"))
+    setEnd(format(endOfMonth(parseISO(start)), "yyyy-MM-dd"))
+  }
 
+  
   return (
     <>
       <StyleFormControl size="small">
@@ -205,7 +177,7 @@ export const OverallMonthDropdown = () => {
 
 const StyleFormControl = styled(FormControl)(({ theme }) => ({
   width: 120,
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down("md")]: {
     width: 100,
   },
 }));
