@@ -10,9 +10,9 @@ export const platformKeyNameList = [
   'roas',
   'convValue',
   'ctr',
+  'cvr',
   'cpc',
   'cpa',
-  'cvr',
 ] as (keyof PlatformAdData)[];
 
 export const platformChannelList = [

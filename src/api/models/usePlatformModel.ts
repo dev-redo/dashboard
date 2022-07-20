@@ -54,11 +54,6 @@ export const usePlatformModel = () => {
     const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
     try {
-      // const response = await apiRequest.get(
-      //   '/platform',
-      //   `date_gte=${startDate}&date_lte=${endDate}`,
-      // );
-
       const response = await axios.get(
         `${BASE_URL}/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
@@ -68,7 +63,7 @@ export const usePlatformModel = () => {
         const { channel } = curr;
 
         platformKeyNameList.forEach(name => {
-          const adDataValue = curr[name];
+          const adDataValue = Math.round(curr[name]);
           acc[channel][name] += adDataValue;
         });
 
