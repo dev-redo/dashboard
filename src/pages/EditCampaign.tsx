@@ -1,16 +1,25 @@
 import Layout from '../components/layout/Layout';
 import { useLocation } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
-import { Box, styled, Button, TextField, FormControl, Select, MenuItem } from '@mui/material';
+import { apiRequest } from '../api/instance/instance';
+import {
+  Box,
+  styled,
+  Button,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const EditCampaign = (match: object) => {
   const location = useLocation();
   const campaignById: any = location.state;
-console.log(campaignById);
+  console.log(campaignById);
 
   const navigate = useNavigate();
- 
+
   const titleRef = useRef<HTMLInputElement | any>(null);
   const startDateRef = useRef<HTMLDivElement | any>(null);
   const endDateRef = useRef<HTMLDivElement | any>(null);
@@ -21,41 +30,86 @@ console.log(campaignById);
 
   const [inputs, setInputs] = useState({
     title: campaignById.title,
+    type: campaignById.adType,
     status: campaignById.status,
-    startDate: campaignById.startDate.substr(0,10),
-    endDate: campaignById.endDate.substr(0,10),
-    budget: campaignById.budget.toLocaleString(),
+    startDate: campaignById.startDate,
+    endDate: campaignById.endDate,
+    budget: campaignById.budget,
     roas: campaignById.report.roas,
-    convValue: campaignById.report.convValue.toLocaleString(),
-    cost: campaignById.report.cost.toLocaleString(),
+    convValue: campaignById.report.convValue,
+    cost: campaignById.report.cost,
   });
-  const { title,startDate, endDate, budget, roas, convValue, cost } =
-    inputs;
+  const {
+    title,
+    type,
+    status,
+    startDate,
+    endDate,
+    budget,
+    roas,
+    convValue,
+    cost,
+  } = inputs;
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { value, name } = event.target;
-    console.log(value); //수정한 값
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
 
-  const [type, setType] = React.useState('');
+  const [postedType, setPostedType] = React.useState('');
   const [postedStatus, setPostedStatus] = React.useState('');
 
   const handleCampaignType = (event: any) => {
-    setType(event.target.value);
+    setPostedType(event.target.value);
   };
   const handleCampaignStatus = (event: any) => {
     setPostedStatus(event.target.value);
   };
 
-  
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key: any, value: any): any => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+  const patchCampaign = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    const newCampaign: any = {
+      adType: postedType,
+      title: titleRef,
+      budget: budgetRef,
+      status: postedStatus,
+      startDate: startDateRef + 'T00:00:00',
+      endDate: endDateRef + 'T23:59:59',
+      report: {
+        cost: costRef,
+        convValue: convValueRef,
+        roas: roasRef,
+      },
+    };
+    fetch(`http://localhost:8000/campaign/${campaignById.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newCampaign, getCircularReplacer()),
+    }).then(() => {
+      console.log('Edit');
+    });
+  };
   return (
     <Layout>
-      {/* <CampaignForm type="수정하기" campaignDataById={location.state} /> */}
       <Box sx={{ flexGrow: 1 }}>
         <Title>광고 수정하기</Title>
         <AddForm>
@@ -82,8 +136,8 @@ console.log(campaignById);
                 <MenuItem value="">
                   <em>광고 타입</em>
                 </MenuItem>
-                <MenuItem value={'WEB'}>WEB</MenuItem>
-                <MenuItem value={'APP'}>APP</MenuItem>
+                <MenuItem value={'web'}>web</MenuItem>
+                <MenuItem value={'app'}>app</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -100,7 +154,7 @@ console.log(campaignById);
               size="small"
             >
               <Select
-                defaultValue={postedStatus}
+                defaultValue={status}
                 onChange={handleCampaignStatus}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
@@ -108,8 +162,8 @@ console.log(campaignById);
                 <MenuItem value="">
                   <em>광고 상태</em>
                 </MenuItem>
-                <MenuItem value={'ACTIVE'}>ACTIVE</MenuItem>
-                <MenuItem value={'ENDED'}>ENDED</MenuItem>
+                <MenuItem value={'active'}>active</MenuItem>
+                <MenuItem value={'ended'}>ended</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -178,7 +232,7 @@ console.log(campaignById);
               backgroundColor: '#586CF5',
               padding: '0 1.5rem',
             }}
-            onClick={() => {navigate(`/ads/${campaignById.id}`, campaignById )}}
+            onClick={patchCampaign}
           >
             수정하기
           </Button>

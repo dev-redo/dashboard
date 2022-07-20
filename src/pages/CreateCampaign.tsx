@@ -1,27 +1,21 @@
 import Layout from '../components/layout/Layout';
-import CampaignForm from '../components/campaign/CampaignForm';
-import { useLocation } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { apiRequest } from '../api/instance/instance';
 import {
   Box,
   styled,
-  Input,
   Button,
   TextField,
   FormControl,
   Select,
   MenuItem,
-  InputLabel,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const CreateCampaign = (match: object) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log('state', location.state);
 
   const titleRef = useRef<HTMLInputElement | any>(null);
-  const statusRef = useRef<HTMLDivElement | any>(null);
   const startDateRef = useRef<HTMLDivElement | any>(null);
   const endDateRef = useRef<HTMLDivElement | any>(null);
   const budgetRef = useRef<HTMLDivElement | any>(null);
@@ -31,15 +25,17 @@ const CreateCampaign = (match: object) => {
 
   const [inputs, setInputs] = useState({
     title: '',
+    type: '',
     status: '',
-    date: '',
+    startDate: '',
+    endDate: '',
     budget: '',
     roas: '',
     convValue: '',
     cost: '',
   });
-  const [type, setType] = useState('');
-  const [postedStatus, setPostedStatus] = useState('');
+  const [postedType, setPostedType] = React.useState('');
+  const [postedStatus, setPostedStatus] = React.useState('');
 
   // const { title, status, date, budget, roas, convValue, cost } = inputs;
 
@@ -56,18 +52,51 @@ const CreateCampaign = (match: object) => {
   };
 
   const handleCampaignType = (event: any) => {
-    setType(event.target.value);
+    setPostedType(event.target.value);
   };
 
   const handleCampaignStatus = (event: any) => {
     setPostedStatus(event.target.value);
   };
-
-  const ariaLabel = { 'aria-label': 'description' };
-
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key: any, value: any): any => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+  const postCampaign = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    const newCampaign: any = {
+      adType: postedType,
+      title: titleRef,
+      budget: budgetRef,
+      status: postedStatus,
+      startDate: startDateRef + 'T00:00:00',
+      endDate: endDateRef + 'T23:59:59',
+      report: {
+        cost: costRef,
+        convValue: convValueRef,
+        roas: roasRef,
+      },
+    };
+    fetch(`http://localhost:8000/campaign/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newCampaign, getCircularReplacer()),
+    }).then(() => {
+      console.log('Create');
+    });
+  };
   return (
     <Layout>
-      {/* <CampaignForm type="만들기" campaignDataById={location.state} /> */}
       <Box sx={{ flexGrow: 1 }}>
         <Title>광고 만들기</Title>
         <AddForm>
@@ -85,7 +114,7 @@ const CreateCampaign = (match: object) => {
               size="small"
             >
               <Select
-                value={type}
+                value={postedType}
                 onChange={handleCampaignType}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
@@ -183,6 +212,7 @@ const CreateCampaign = (match: object) => {
               backgroundColor: '#586CF5',
               padding: '0 1.5rem',
             }}
+            onClick={postCampaign}
           >
             광고 만들기
           </Button>
