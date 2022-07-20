@@ -1,35 +1,35 @@
-import {parseISO, eachWeekendOfInterval, format,startOfWeek, startOfMonth, endOfWeek, endOfMonth, eachMonthOfInterval, add, isSunday, nextSunday, nextSaturday, previousSunday, eachWeekOfInterval } from 'date-fns'
-// import ChannelReport from "../data/channel-report.json";
-import {
-    MenuItem,
-  } from "@mui/material";
-  import { dynamicChartData, isMonthData, dateData } from "../store/charts";
-  import { useRecoilState } from "recoil";
-  
+import {parseISO, eachWeekendOfInterval, format, endOfMonth, eachMonthOfInterval, add, isSunday, nextSaturday, previousSunday, eachWeekOfInterval } from 'date-fns'
 
+import { MenuItem } from "@mui/material";
+import { isMonthData } from "../store/charts";
+import { useRecoilState } from "recoil";
+  
 export const useListedEachWeek = (startDate:Date, endDate:Date, lastDate:Date = parseISO("2022-04-20")) => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
-    // const star = parseISO(ChannelReport[1].date)
-    // const lastDate = parseISO(ChannelReport[ChannelReport.length -1].date)
+  const Week:string[] = []
+  const Month:string[] = []
+
     const result = eachWeekendOfInterval({
       start: startDate,
       end: endDate
     })
-    const result2 = eachWeekOfInterval({
+
+    const weekResult = eachWeekOfInterval({
       start: startDate,
       end: endDate,
     }, {weekStartsOn : 2})
 
-    const Week:string[] = []
-    const dateRange2 = result2.forEach((x) => 
+    const monthResult = eachMonthOfInterval({
+      start: startDate,
+      end: endDate
+    })
+
+    weekResult.forEach((x) => 
     {
       Week.push(format(x, "yyyy년 MM월 dd일"))
       Week.push(format(add(x, {days:6}), "yyyy년 MM월 dd일"))
       return Week;
   });
-    // console.log(dateRange2)
-
-
 
     const dateRange = result.map((x) => 
     (format(x, "yyyy년 MM월 dd일")));
@@ -40,15 +40,8 @@ export const useListedEachWeek = (startDate:Date, endDate:Date, lastDate:Date = 
     const EvenRange = dateRange.filter((x:string, index) => 
       (index !== 0 && index % 2 === 0 ? x : ""));
   
-    // console.log(dateRange)
-    // console.log(OddRange, EvenRange)
-
-    const monthResult = eachMonthOfInterval({
-      start: startDate,
-      end: endDate
-    })
-    const Month:string[] = []
-    const listedMonthArray = monthResult.map((x, index) => {
+  
+    monthResult.map((x, index) => {
       Month.push(format(x, "yyyy년 MM월 dd일"));
         monthResult.length -1 === index && format(lastDate, "dd") < format(endOfMonth(x), "dd") ? Month.push(format(lastDate, "yyyy년 MM월 dd일")) : Month.push(format(endOfMonth(x), "yyyy년 MM월 dd일"))
         return Month;
@@ -81,8 +74,5 @@ export const useListedEachWeek = (startDate:Date, endDate:Date, lastDate:Date = 
       <em>{x} ~ {MonthEvenRange[index] ? MonthEvenRange[index] : "현재"}</em>
     </MenuItem>))
 
-
-    
-      
     return {listedDate, listedMonth};
 }

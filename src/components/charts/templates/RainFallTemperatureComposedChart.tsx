@@ -10,10 +10,10 @@ import {
   Area,
   Line
 } from "recharts";
-import ChartCard from '../chartCustoms/ChartCard';
+
 import { RAINFALL } from '../../../data/melb-monthly-rainfail';
 import { TEMPERATURE } from '../../../data/melb-monthly-temperature';
-import { getMonthNameByOrder } from '../../../monthMapping';
+import { getMonthNameByOrder } from '../../../data/monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 
 const RainFallTemperatureComposedChart: React.FC = () => {
@@ -23,7 +23,7 @@ const RainFallTemperatureComposedChart: React.FC = () => {
   }));
 
   return (
-    <ChartCard heading="Melbourne 2019 monthly rainfall and temperature">
+    
       <ResponsiveContainer width="100%" height={220}>
         <ComposedChart data={data} style={{ fontWeight: 'bold' }}>
           <defs>
@@ -84,7 +84,7 @@ const RainFallTemperatureComposedChart: React.FC = () => {
           <Legend />
         </ComposedChart>
       </ResponsiveContainer>
-    </ChartCard>
+   
   );
 };
 

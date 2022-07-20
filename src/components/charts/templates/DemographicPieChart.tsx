@@ -1,9 +1,8 @@
 import React from "react";
 import { ResponsiveContainer, PieChart, Tooltip, Pie, Cell } from "recharts";
 
-import ChartCard from '../chartCustoms/ChartCard';
 import { AGE_GROUP } from '../../../data/website-visit-age-group';
-import { getMonthNameByOrder } from '../../../monthMapping';
+import { getMonthNameByOrder } from '../../../data/monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 import { COLORS } from "../../../styles/constants/pieColors";
 
@@ -35,7 +34,7 @@ const renderCustomizedLabel = ({cx, cy, midAngle, innerRadius, outerRadius, perc
 
 const DemographicPieChart: React.FC = () => {
   return (
-    <ChartCard heading="Website visit age group">
+  
       <ResponsiveContainer width="100%" height={200}>
         <PieChart style={{ fontWeight: 'bold' }}>
           <Tooltip
@@ -63,7 +62,7 @@ const DemographicPieChart: React.FC = () => {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
-    </ChartCard>
+   
   );
 };
 
