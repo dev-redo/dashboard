@@ -65,7 +65,7 @@ const PlatformReports = () => {
       setTableAdData(response);
     }
     fetchAndSetTableData();
-  }, []);
+  }, [start, end]);
 
   return (
     <StyledItem>
