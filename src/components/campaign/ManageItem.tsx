@@ -8,8 +8,6 @@ import {
   Grid,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// import CampaignList from "../../data/campaign-list.json";
-// import CampaignItems from "../../types/campaign";
 
 const ManageItem = (props: any) => {
   const campaignList = props.props;

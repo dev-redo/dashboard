@@ -1,12 +1,8 @@
 import { CampaignItems } from '../types/campaign';
-import { OverallItem, OverallItems } from './../types/overall.d';
 import { PlatformItems } from './../types/platform.d';
 import { api } from './api';
 
-// TODO: 여기서 dateFormat 같은거 쓰면 될 거같아요
-
 export const fetchedOverall = async () => {
-  // const overall: OverallItems = [];
   try {
     return await api.getOverall();
   } catch (error) {

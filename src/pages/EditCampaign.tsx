@@ -1,7 +1,6 @@
 import Layout from '../components/layout/Layout';
 import { useLocation } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
-import { apiRequest } from '../api/instance/instance';
 import {
   Box,
   styled,
@@ -16,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const EditCampaign = (match: object) => {
   const location = useLocation();
   const campaignById: any = location.state;
-  console.log(campaignById);
+  // console.log(campaignById);
 
   const navigate = useNavigate();
 
@@ -105,7 +104,7 @@ const EditCampaign = (match: object) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newCampaign, getCircularReplacer()),
     }).then(() => {
-      console.log('Edit');
+      // console.log('Edit');
     });
   };
   return (

@@ -1,17 +1,15 @@
 import { PlatformItems } from './../../types/platform.d';
 import { useState } from 'react';
 import { apiRequest } from '../instance/instance';
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { add, format } from 'date-fns';
 import axios from 'axios';
 import {
   platformKeyNameList,
   platformChannelList,
   platformNameList,
-  initialChartFormat,
   initialTableFormat,
 } from '../utils/platformDataFormat';
-import { access } from 'fs';
 
 interface DataType {
   [x: string]: any;

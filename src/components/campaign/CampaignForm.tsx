@@ -26,7 +26,7 @@ const CampaignForm = ({ type, campaignDataById }: any) => {
 
   useEffect(() => {
     if (campaignDataById === null) {
-      console.log('만들기페이지 버그 수정');
+      // console.log('만들기페이지 버그 수정');
       setPreviousTitle(titleRef.current.value);
       setStatus(statusRef.current.value);
       setDate(dateRef.current.value);
@@ -45,7 +45,7 @@ const CampaignForm = ({ type, campaignDataById }: any) => {
     }
   });
   const handleChange = (event: any): any => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setPreviousTitle(event.target.value);
   };
   const ariaLabel = { 'aria-label': 'description' };

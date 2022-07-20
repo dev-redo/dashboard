@@ -1,4 +1,4 @@
-export const f = [{
+export const roasCpc = [{
     firstData: 'roas',
     secondData: 'cpc',
   },
@@ -9,7 +9,7 @@ export const f = [{
     secondDataName: '클릭단가',
   }]
   
-  export const ff = [{
+  export const clickCpc = [{
     firstData: 'click',
     secondData: 'cpc',
   },
@@ -21,7 +21,7 @@ export const f = [{
   }
   ]
   
-  export const fff = [{
+  export const convCvr = [{
     firstData: 'conv',
     secondData: 'cvr',
   },
@@ -33,7 +33,7 @@ export const f = [{
   }
   ]
   
-  export const ffff = [{
+  export const clickCtr = [{
     firstData: 'click',
     secondData: 'ctr',
   },

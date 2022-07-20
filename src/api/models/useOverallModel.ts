@@ -1,7 +1,6 @@
 import { dateFormatSetting } from './../utils/dateFormatSetting';
 import { useState } from 'react';
 import { apiRequest } from '../instance/instance';
-import axios from 'axios';
 
 import { OverallItems } from '../../types/overall';
 
