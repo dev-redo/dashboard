@@ -18,12 +18,16 @@ import {
 } from "./OverallDropdowns";
 import {useState } from 'react';
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useSpinner } from "../../hooks/useSpinner";
 
 const OverallReports = () => {
   const [type, setType] = useState({type:"Line"})
+  const { loadSpinner } = useSpinner();
+
 console.log(type)
  const handleChange = (event: SelectChangeEvent) => {
     setType({type: event.target.value as string})
+    loadSpinner();
   }
 
   const fetchChart = () => {

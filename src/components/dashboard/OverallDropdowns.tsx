@@ -10,6 +10,7 @@ import { parseISO, format, add, isSunday, nextSunday, nextSaturday, endOfMonth }
 // import DailyReport from "../../data/daily-report.json";
 // import {useOverallModel} from "../../api/models/useOverallModel"
 import { startData, endData, lastData, firstData } from "../../store/global";
+import { useSpinner } from "../../hooks/useSpinner";
 
 
 export const OverallDateDropdown = () => {
@@ -23,12 +24,15 @@ export const OverallDateDropdown = () => {
   const startDate = parseISO(start);
   const firstDate = parseISO(first);
   const endDate = parseISO(end);
+  const { loadSpinner } = useSpinner();
 
   // console.log(date.startDate, date.endDate);
   console.log(currentDate)
   const {listedDate, listedMonth} = useListedEachWeek(firstDate, lastDate);
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const handleChange = (event: SelectChangeEvent) => {
+    loadSpinner();
+
   const regex = /[^0-9]/g;
     setDateList(event.target.value as string);
     setStart(event.target.value.split('~')[0].replace(/ /g, '').replace(regex, "-").slice(0, -1))
@@ -60,13 +64,16 @@ export const OverallMiddleDropdown = () => {
   const [select1, setSelect1] = useState("");
   const [select2, setSelect2] = useState("");
   const [dynamics, setDynamics] = useRecoilState(dynamicChartData);
+  const { loadSpinner } = useSpinner();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelect1(event.target.value as string);
+    loadSpinner();
   };
 
   const handleChange2 = (event: SelectChangeEvent) => {
     setSelect2(event.target.value as string);
+    loadSpinner();
   };
 
   return (
@@ -118,8 +125,11 @@ export const OverallMonthDropdown = () => {
   const [end, setEnd] = useRecoilState(endData)
   const [last, setLast] = useRecoilState(lastData)
   const [first, setFirst] = useRecoilState(firstData)
+  const { loadSpinner } = useSpinner();
+
   const handleChange = (event: SelectChangeEvent) => {
     setDate(event.target.value as string);
+    loadSpinner();
   };
 
   const changeToWeek = () => {
