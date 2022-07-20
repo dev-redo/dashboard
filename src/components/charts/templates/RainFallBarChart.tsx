@@ -9,14 +9,14 @@ import {
   Legend,
   Bar
 } from "recharts";
-import ChartCard from '../chartCustoms/ChartCard';
+
 import { RAINFALL } from '../../../data/melb-monthly-rainfail';
-import { getMonthNameByOrder } from '../../../monthMapping';
+import { getMonthNameByOrder } from '../../../data/monthMapping';
 import { TooltipContainerStyles } from "../../../styles/constants/tooltipContainerStyles";
 
 const RainFallBarChart: React.FC = () => {
   return (
-    <ChartCard heading="Melbourne 2019 monthly rainfall">
+   
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={RAINFALL["2019"]}  style={{ fontWeight: 'bold' }}>
           <CartesianGrid
@@ -38,7 +38,7 @@ const RainFallBarChart: React.FC = () => {
           <Bar dataKey="rainfall" fill="#3066BE" unit="ml" name="Rainfall" />
         </BarChart>
       </ResponsiveContainer>
-    </ChartCard>
+   
   );
 };
 

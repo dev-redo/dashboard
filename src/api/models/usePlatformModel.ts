@@ -54,11 +54,6 @@ export const usePlatformModel = () => {
     const endDate = format(add(date, { days: day }), 'yyyy-MM-dd');
 
     try {
-      // const response = await apiRequest.get(
-      //   '/platform',
-      //   `date_gte=${startDate}&date_lte=${endDate}`,
-      // );
-
       const response = await axios.get(
         `${BASE_URL}/platform?date_gte=${startDate}&date_lte=${endDate}`,
       );
@@ -107,6 +102,8 @@ export const usePlatformModel = () => {
         );
         return { name: name, sum: value };
       });
+
+      console.log(tableSumData);
 
       return { channelTableData, tableSumData };
     } catch (error) {}

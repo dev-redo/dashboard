@@ -47,7 +47,12 @@ const PlatformReports = () => {
     end: parseISO(end),
   });
 
-  const [tableAdData, setTableAdData] = useState<any[]>();
+  const [tableAdData, setTableAdData] = useState({
+    channelTableData: [],
+    tableSumData: [],
+  });
+  const { channelTableData, tableSumData } = tableAdData;
+
   const { getPlatformTableData } = usePlatformModel();
 
   useEffect(() => {
@@ -60,9 +65,8 @@ const PlatformReports = () => {
       setTableAdData(response);
     }
     fetchAndSetTableData();
-  }, []);
+  }, [start, end]);
 
-  // TODO: Table Row 하드코딩한 값 변경 (해시로 저장한 후 match되는 값으로 이름 설정)
   return (
     <StyledItem>
       <StackedBarChart />
@@ -87,17 +91,32 @@ const PlatformReports = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableAdData?.map((table, idx) => {
+            {channelTableData?.map((table, idx) => {
               const { name, tableData } = table;
               return (
-                <TableRow key={`${table}-table-item-${idx}`}>
+                <TableRow key={`${table}-table-row-${idx}`}>
                   <TableCell>{name}</TableCell>
                   {Object.values(tableData).map((ad: any) => (
-                    <TableCell>{ad}</TableCell>
+                    <TableCell
+                      key={`${ad}-table-channel-item-${idx}`}
+                    >
+                      {ad}
+                    </TableCell>
                   ))}
                 </TableRow>
               );
             })}
+            <TableRow>
+              <TableCell>총계</TableCell>
+              {tableSumData?.map((table, idx) => {
+                const { name, sum } = table;
+                return (
+                  <TableCell key={`${name}-table-sum-item-${idx}`}>
+                    {sum}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
