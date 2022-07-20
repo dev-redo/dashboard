@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { useListedEachWeek } from "../../hooks/useListedWeeksAndMonth";
 import { parseISO, format, add, endOfMonth, startOfMonth } from "date-fns";
 import { startData, endData, lastData, firstData, typesData } from "../../store/global";
-
+import { useSpinner } from "../../hooks/useSpinner";
 
 export const TopDateDropdown = () => {
   const [start, setStart] = useRecoilState(startData);
@@ -17,6 +17,7 @@ export const TopDateDropdown = () => {
   const [dateList, setDateList] = useState("");
   const lastDate = parseISO(last);
   const firstDate = parseISO(first);
+  const { loadSpinner } = useSpinner();
 
   const {listedDate, listedMonth} = useListedEachWeek(firstDate, lastDate);
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
@@ -27,6 +28,7 @@ export const TopDateDropdown = () => {
     const startDateToString = event.target.value.split('~')[0].replace(/ /g, '').replace(regex, "-").slice(0, -1);
     const endDateToString = event.target.value.split('~')[1].replace(/ /g, '') === 'undefined' ? last : event.target.value.split('~')[1].replace(/ /g, '').replace(regex, "-").slice(0, -1);
 
+    loadSpinner();
     setDateList(event.target.value as string);
     setStart(startDateToString)
     setEnd(endDateToString)
@@ -56,18 +58,23 @@ export const MiddleLeftDropdowns = () => {
   const [select1, setSelect1] = useState("");
   const [select2, setSelect2] = useState("");
   const [dynamics, setDynamics] = useRecoilState(dynamicChartData);
-  const [type, setType] = useRecoilState(typesData)
+  const [type, setType] = useRecoilState(typesData);
+  const { loadSpinner } = useSpinner();
+
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelect1(event.target.value as string);
+    loadSpinner();
   };
 
   const handleChange2 = (event: SelectChangeEvent) => {
     setSelect2(event.target.value as string);
+    loadSpinner();
   };
 
   const handleChange3 = (event: SelectChangeEvent) => {
     setType({type: event.target.value as string})
+    loadSpinner();
   }
 
   return (
@@ -134,9 +141,11 @@ export const WeekToMonthDropdown = () => {
   const [isMonth, setIsMonth] = useRecoilState(isMonthData);
   const [start, setStart] = useRecoilState(startData);
   const [end, setEnd] = useRecoilState(endData)
+  const { loadSpinner } = useSpinner();
 
   const handleChange = (event: SelectChangeEvent) => {
     setDate(event.target.value as string);
+    loadSpinner();
   };
 
   const changeToWeek = () => {
